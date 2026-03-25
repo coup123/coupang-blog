@@ -1,77 +1,76 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { CATEGORIES } from "@/lib/constants";
 import type { PostMeta } from "@/lib/posts";
 import type { CategoryKey } from "@/lib/constants";
 
-const CATEGORY_COLORS: Record<string, { bg: string; text: string; border: string }> = {
-  cleaning: { bg: "#e8f5e9", text: "#388e3c", border: "#a5d6a7" },
-  cooking:  { bg: "#fff3e0", text: "#e65100", border: "#ffcc80" },
-};
-
 export default function PostCard({ post }: { post: PostMeta }) {
   const cat = CATEGORIES[post.category as CategoryKey];
-  const color = CATEGORY_COLORS[post.category] ?? { bg: "#fafafa", text: "#555", border: "#ddd" };
+  const color = cat?.color ?? { bg: "#fafafa", text: "#555", border: "#ddd", accent: "#888" };
 
   return (
     <Link href={`/${post.category}/${post.slug}`} className="group block">
-      <article
-        className="rounded-2xl p-5 transition-all duration-200 hover:-translate-y-1 hover:shadow-xl"
-        style={{
-          background: "#fffdf8",
-          border: "2px solid #ffe0c8",
-          boxShadow: "0 3px 14px rgba(255,176,133,0.12)",
-        }}
+      <article className="rounded-2xl overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-xl bg-white"
+        style={{ border: "1.5px solid #f0e8e0", boxShadow: "0 2px 10px rgba(0,0,0,0.06)" }}
       >
-        {/* 카테고리 뱃지 + 날짜 */}
-        <div className="flex items-center justify-between mb-2.5">
+        {/* 썸네일 */}
+        <div className="relative w-full overflow-hidden bg-gray-100" style={{ aspectRatio: "4/3" }}>
+          {post.thumbnail ? (
+            <Image
+              src={post.thumbnail}
+              alt={post.title}
+              fill
+              className="object-cover transition-transform duration-300 group-hover:scale-105"
+            />
+          ) : (
+            <div
+              className="w-full h-full flex items-center justify-center text-5xl"
+              style={{ background: `linear-gradient(135deg, ${color.bg}, #fff8f0)` }}
+            >
+              {cat?.emoji}
+            </div>
+          )}
+          {/* 카테고리 뱃지 */}
           <span
-            className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold"
+            className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-full text-xs font-extrabold"
             style={{ background: color.bg, color: color.text, border: `1.5px solid ${color.border}` }}
           >
             {cat?.emoji} {cat?.name}
           </span>
-          <div className="flex items-center gap-2 text-xs" style={{ color: "#b89a80" }}>
-            <time>{post.date}</time>
-            <span>·</span>
-            <span>{post.readingTime}</span>
-          </div>
         </div>
 
-        {/* 제목 */}
-        <h2
-          className="text-base font-extrabold leading-snug line-clamp-2 transition-colors duration-200 group-hover:text-orange-600"
-          style={{ color: "#3d2c1e" }}
-        >
-          {post.title}
-        </h2>
+        {/* 텍스트 */}
+        <div className="p-3.5">
+          <h2
+            className="text-sm font-extrabold leading-snug line-clamp-2 transition-colors group-hover:text-orange-500"
+            style={{ color: "#3d2c1e" }}
+          >
+            {post.title}
+          </h2>
+          <p className="mt-1 text-xs line-clamp-2" style={{ color: "#9e7c68" }}>
+            {post.description}
+          </p>
 
-        {/* 설명 */}
-        <p className="mt-1.5 text-sm line-clamp-2" style={{ color: "#9e7c68" }}>
-          {post.description}
-        </p>
+          {/* 태그 */}
+          {post.tags && post.tags.length > 0 && (
+            <div className="mt-2 flex flex-wrap gap-1">
+              {post.tags.slice(0, 2).map((tag) => (
+                <span
+                  key={tag}
+                  className="text-xs px-2 py-0.5 rounded-full"
+                  style={{ background: "#fff0e6", color: "#c9713a" }}
+                >
+                  #{tag}
+                </span>
+              ))}
+            </div>
+          )}
 
-        {/* 태그 */}
-        {post.tags && post.tags.length > 0 && (
-          <div className="mt-3 flex flex-wrap gap-1.5">
-            {post.tags.slice(0, 3).map((tag) => (
-              <span
-                key={tag}
-                className="rounded-full px-2.5 py-0.5 text-xs font-medium"
-                style={{ background: "#fff0e6", color: "#c9713a", border: "1px solid #ffd4b2" }}
-              >
-                #{tag}
-              </span>
-            ))}
+          <div className="mt-2 text-xs" style={{ color: "#b89a80" }}>
+            {post.readingTime}
           </div>
-        )}
-
-        {/* 읽기 유도 */}
-        <div className="mt-3 flex justify-end">
-          <span className="text-xs font-bold" style={{ color: "#d97a45" }}>
-            자세히 보기 →
-          </span>
         </div>
       </article>
     </Link>

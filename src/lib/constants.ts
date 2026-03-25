@@ -1,13 +1,32 @@
 export const SITE_CONFIG = {
   name: "생활꿀팁",
-  description: "청소, 요리 등 생활 속 꿀팁과 추천 제품 정보",
+  description: "청소, 건강, 요리 — 매일의 살림을 더 스마트하게",
   url: "https://coupang-inky.vercel.app",
   author: "생활꿀팁",
 } as const;
 
 export const CATEGORIES = {
-  cleaning: { name: "청소/정리", emoji: "🧹", slug: "cleaning" },
-  cooking: { name: "요리/레시피", emoji: "🍳", slug: "cooking" },
+  cleaning: {
+    name: "청소방법",
+    emoji: "🧹",
+    slug: "cleaning",
+    description: "집 안 구석구석 청소 노하우",
+    color: { bg: "#e8f5e9", text: "#2e7d32", border: "#a5d6a7", accent: "#43a047" },
+  },
+  health: {
+    name: "건강루틴",
+    emoji: "💊",
+    slug: "health",
+    description: "매일 챙기는 건강 습관과 영양제",
+    color: { bg: "#e3f2fd", text: "#1565c0", border: "#90caf9", accent: "#1e88e5" },
+  },
+  cooking: {
+    name: "음식레시피",
+    emoji: "🍳",
+    slug: "cooking",
+    description: "쉽고 맛있는 집밥 레시피",
+    color: { bg: "#fff3e0", text: "#e65100", border: "#ffcc80", accent: "#fb8c00" },
+  },
 } as const;
 
 export type CategoryKey = keyof typeof CATEGORIES;
