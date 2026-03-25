@@ -16,7 +16,10 @@ export async function generateMetadata({ params }: Props) {
   const { category } = await params;
   const cat = CATEGORIES[category];
   if (!cat) return {};
-  return { title: `${cat.name} | 생활꿀팁`, description: cat.description };
+  return {
+    title: `${cat.name} | ${process.env.NEXT_PUBLIC_SITE_NAME || "생활꿀팁"}`,
+    description: cat.description,
+  };
 }
 
 export default async function CategoryPage({ params }: Props) {
@@ -27,52 +30,75 @@ export default async function CategoryPage({ params }: Props) {
   const posts = getPostsByCategory(category);
 
   return (
-    <div className="mx-auto max-w-5xl px-5 py-10">
-      {/* 카테고리 헤더 */}
+    <>
+      {/* ─── 카테고리 히어로 ──────────────────────────── */}
       <section
-        className="rounded-2xl px-8 py-9 mb-10 flex items-center gap-6"
         style={{
-          background: "linear-gradient(135deg, #e8f7f1 0%, #f5fdf9 100%)",
-          border: "1px solid #c8eedd",
+          background: "linear-gradient(180deg, #fbfbfd 0%, #f5f5f7 100%)",
+          paddingTop: 80,
+          paddingBottom: 80,
+          textAlign: "center",
+          borderBottom: "1px solid rgba(210,210,215,0.4)",
         }}
       >
-        <div
-          className="flex items-center justify-center rounded-2xl"
-          style={{ width: 64, height: 64, background: "rgba(255,255,255,0.8)", border: "1px solid #d4f0e4" }}
-        >
+        <div className="container">
           {cat.iconUrl ? (
-            <Image src={cat.iconUrl} alt={cat.name} width={36} height={36} className="object-contain" />
+            <Image
+              src={cat.iconUrl}
+              alt={cat.name}
+              width={64}
+              height={64}
+              className="object-contain mx-auto mb-6"
+            />
           ) : (
-            <span style={{ fontSize: "2rem" }}>{cat.emoji}</span>
+            <span style={{ fontSize: "3.5rem", display: "block", marginBottom: 24 }}>
+              {cat.emoji}
+            </span>
           )}
-        </div>
-        <div>
-          <h1 className="font-extrabold" style={{ fontSize: "1.5rem", color: "#111", letterSpacing: "-0.02em" }}>
-            {cat.name}
+          <p className="text-eyebrow mb-3">{cat.name}</p>
+          <h1
+            className="text-section-head mx-auto mb-4"
+            style={{ maxWidth: 640 }}
+          >
+            {cat.description}
           </h1>
-          <p className="mt-1 text-sm" style={{ color: "#666" }}>{cat.description}</p>
-          <p className="mt-1 text-xs font-semibold" style={{ color: "#15A775" }}>
-            총 {posts.length}개의 포스팅
+          <p style={{ color: "var(--apple-text-ter)", fontSize: "var(--fs-sm)" }}>
+            총 {posts.length}개의 꿀팁
           </p>
         </div>
       </section>
 
-      {/* 4열 그리드 */}
-      {posts.length === 0 ? (
-        <div
-          className="py-24 text-center rounded-2xl"
-          style={{ background: "#f9f9f9", border: "1px dashed #ddd" }}
-        >
-          <p className="text-4xl mb-3">🌱</p>
-          <p style={{ color: "#aaa", fontSize: "0.9rem" }}>아직 등록된 포스팅이 없어요.</p>
+      {/* ─── 포스트 그리드 ────────────────────────────── */}
+      <section style={{ paddingTop: 60, paddingBottom: 100 }}>
+        <div className="container">
+          {posts.length === 0 ? (
+            <div
+              style={{
+                textAlign: "center",
+                padding: "80px 0",
+                color: "var(--apple-text-ter)",
+              }}
+            >
+              <p style={{ fontSize: "3rem", marginBottom: 16 }}>🌱</p>
+              <p style={{ fontSize: "var(--fs-label)" }}>
+                아직 등록된 포스팅이 없습니다.
+              </p>
+            </div>
+          ) : (
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+                gap: 20,
+              }}
+            >
+              {posts.map((post) => (
+                <PostCard key={post.slug} post={post} />
+              ))}
+            </div>
+          )}
         </div>
-      ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          {posts.map((post) => (
-            <PostCard key={post.slug} post={post} />
-          ))}
-        </div>
-      )}
-    </div>
+      </section>
+    </>
   );
 }

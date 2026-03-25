@@ -1,90 +1,243 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap");
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/* ─── Apple Design System ─────────────────────────────────── */
 :root {
-  --green: #15A775;
-  --green-light: #e8f7f1;
-  --green-hover: #0e8a60;
-  --gray-tag: #f3f3f3;
-  --gray-text: #888888;
-  --gray-border: #eeeeee;
-  --gray-sub: #666666;
+  /* Colors */
+  --apple-bg:        #ffffff;
+  --apple-bg-alt:    #f5f5f7;
+  --apple-bg-dark:   #1d1d1f;
+  --apple-text:      #1d1d1f;
+  --apple-text-sec:  #6e6e73;
+  --apple-text-ter:  #86868b;
+  --apple-blue:      #0066cc;
+  --apple-blue-hover:#004499;
+  --apple-border:    rgba(210,210,215,0.64);
+  --apple-card-bg:   #f5f5f7;
+
+  /* Typography scale (matching Apple) */
+  --fs-hero:     80px;
+  --fs-h1:       56px;
+  --fs-h2:       40px;
+  --fs-h3:       28px;
+  --fs-h4:       21px;
+  --fs-label:    17px;
+  --fs-body:     17px;
+  --fs-sm:       14px;
+  --fs-xs:       12px;
+
+  /* Layout */
+  --max-w:       1200px;
+  --section-py:  100px;
+  --card-radius: 18px;
 }
 
-@theme inline {
-  --color-background: #ffffff;
-  --color-foreground: #111111;
-}
+/* ─── Reset ───────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 17px; scroll-behavior: smooth; }
 
 body {
-  background: #ffffff;
-  color: #111111;
-  font-family: "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
-  line-height: 1.7;
+  background: var(--apple-bg);
+  color: var(--apple-text);
+  font-family: "SF Pro KR", "SF Pro Text", "Noto Sans KR", "Apple SD Gothic Neo", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: var(--fs-body);
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 a { color: inherit; text-decoration: none; }
 img { display: block; max-width: 100%; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
 
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #fafafa; }
-::-webkit-scrollbar-thumb { background: #ddd; border-radius: 3px; }
+/* ─── Scrollbar ───────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 3px; }
 
-/* ─── prose (MDX) ─── */
-.prose {
-  --tw-prose-body: #444;
-  --tw-prose-headings: #111;
-  --tw-prose-links: var(--green);
-  --tw-prose-bold: #111;
-  --tw-prose-quotes: #666;
-  --tw-prose-quote-borders: var(--green);
-  --tw-prose-hr: #eee;
-  max-width: 720px;
-  font-size: 1rem;
-  line-height: 1.85;
-}
-.prose h2 {
-  border-left: 3px solid var(--green);
-  padding-left: 0.75rem;
-  margin-top: 2rem;
-}
-.prose a { color: var(--green); }
-.prose code {
-  background: #f5f5f5;
-  padding: 0.15em 0.4em;
-  border-radius: 4px;
-  font-size: 0.87em;
+/* ─── Apple Typography Classes ───────────────────────────── */
+.text-hero {
+  font-size: clamp(40px, 6vw, var(--fs-hero));
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.003em;
+  color: var(--apple-text);
 }
 
-/* ─── tag pill ─── */
-.tag-pill {
-  display: inline-block;
-  background: var(--gray-tag);
-  color: var(--gray-sub);
-  font-size: 0.72rem;
-  font-weight: 500;
-  padding: 3px 10px;
-  border-radius: 21px;
+.text-section-head {
+  font-size: clamp(28px, 4vw, var(--fs-h1));
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: -0.002em;
+  color: var(--apple-text);
+}
+
+.text-card-head {
+  font-size: clamp(22px, 2.2vw, var(--fs-h3));
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: 0.007em;
+  color: var(--apple-text);
+}
+
+.text-label {
+  font-size: var(--fs-label);
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--apple-text);
+}
+
+.text-body {
+  font-size: var(--fs-body);
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--apple-text-sec);
+}
+
+.text-caption {
+  font-size: var(--fs-xs);
+  font-weight: 400;
+  line-height: 1.42;
+  color: var(--apple-text-ter);
+}
+
+.text-eyebrow {
+  font-size: var(--fs-sm);
+  font-weight: 600;
   line-height: 1.4;
+  letter-spacing: 0.01em;
+  color: var(--apple-blue);
 }
 
-/* ─── green button ─── */
-.btn-green {
+/* ─── Apple Buttons ───────────────────────────────────────── */
+.btn-apple-filled {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 6px;
-  background: var(--green);
+  background: var(--apple-blue);
   color: #fff;
-  font-size: 0.82rem;
-  font-weight: 600;
-  padding: 7px 16px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  transition: background 0.18s;
+  font-size: var(--fs-sm);
+  font-weight: 400;
+  padding: 8px 20px;
+  border-radius: 980px;
+  transition: background 0.2s;
+  white-space: nowrap;
 }
-.btn-green:hover { background: var(--green-hover); }
+.btn-apple-filled:hover { background: var(--apple-blue-hover); }
+
+.btn-apple-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: transparent;
+  color: var(--apple-blue);
+  font-size: var(--fs-sm);
+  font-weight: 400;
+  padding: 8px 20px;
+  border-radius: 980px;
+  border: 1px solid var(--apple-blue);
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.btn-apple-outline:hover { background: var(--apple-blue); color: #fff; }
+
+.link-apple {
+  color: var(--apple-blue);
+  font-size: var(--fs-sm);
+  font-weight: 400;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.link-apple:after { content: ' ›'; }
+.link-apple:hover { text-decoration: underline; }
+
+/* ─── Apple Card ──────────────────────────────────────────── */
+.apple-card {
+  background: var(--apple-card-bg);
+  border-radius: var(--card-radius);
+  overflow: hidden;
+}
+
+.apple-card-dark {
+  background: var(--apple-bg-dark);
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  color: #f5f5f7;
+}
+
+/* ─── Layout ──────────────────────────────────────────────── */
+.container {
+  max-width: var(--max-w);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.section-py { padding-top: var(--section-py); padding-bottom: var(--section-py); }
+
+/* ─── Prose (MDX) ─────────────────────────────────────────── */
+.prose {
+  --tw-prose-body: #1d1d1f;
+  --tw-prose-headings: #1d1d1f;
+  --tw-prose-links: #0066cc;
+  --tw-prose-bold: #1d1d1f;
+  --tw-prose-quotes: #6e6e73;
+  --tw-prose-quote-borders: #0066cc;
+  --tw-prose-hr: rgba(210,210,215,0.64);
+  max-width: 740px;
+  font-size: var(--fs-body);
+  line-height: 1.76;
+  color: #1d1d1f;
+}
+.prose h1, .prose h2, .prose h3 {
+  font-weight: 600;
+  letter-spacing: -0.002em;
+  color: #1d1d1f;
+}
+.prose h2 { font-size: 2rem; margin-top: 2.5rem; margin-bottom: 0.8rem; }
+.prose h3 { font-size: 1.4rem; margin-top: 2rem; margin-bottom: 0.6rem; }
+.prose a { color: #0066cc; }
+.prose code {
+  background: #f5f5f7;
+  padding: 0.15em 0.45em;
+  border-radius: 6px;
+  font-size: 0.88em;
+  color: #1d1d1f;
+}
+.prose pre {
+  background: #1d1d1f;
+  color: #f5f5f7;
+  padding: 1.4rem 1.6rem;
+  border-radius: 12px;
+  overflow-x: auto;
+}
+.prose blockquote {
+  border-left: 3px solid #0066cc;
+  padding-left: 1.2rem;
+  color: #6e6e73;
+  font-style: normal;
+}
+
+/* ─── Divider ─────────────────────────────────────────────── */
+.apple-divider {
+  border: none;
+  border-top: 1px solid rgba(210,210,215,0.64);
+}
+
+/* ─── Tag pill ────────────────────────────────────────────── */
+.apple-tag {
+  display: inline-block;
+  background: rgba(0,102,204,0.08);
+  color: var(--apple-blue);
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 980px;
+  letter-spacing: 0.01em;
+}

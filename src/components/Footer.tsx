@@ -3,47 +3,38 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer style={{ background: "#fafafa", borderTop: "1px solid #eeeeee" }}>
-      <div className="mx-auto max-w-5xl px-5 py-10">
-        {/* 상단 */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mb-8">
-          {/* 로고 + 설명 */}
-          <div>
-            <span
-              className="text-lg font-extrabold"
-              style={{ color: "#111", letterSpacing: "-0.01em" }}
+    <footer
+      style={{
+        background: "#f5f5f7",
+        borderTop: "1px solid rgba(210,210,215,0.64)",
+        paddingTop: 40,
+        paddingBottom: 40,
+      }}
+    >
+      <div className="container">
+        {/* 상단 링크 */}
+        <div
+          className="flex flex-wrap gap-x-8 gap-y-2 mb-6 pb-6"
+          style={{ borderBottom: "1px solid rgba(210,210,215,0.64)" }}
+        >
+          {Object.values(CATEGORIES).map((cat) => (
+            <Link
+              key={cat.slug}
+              href={`/${cat.slug}`}
+              className="transition-colors hover:underline"
+              style={{ fontSize: "var(--fs-sm)", color: "var(--apple-text-sec)" }}
             >
-              {SITE_CONFIG.name}
-            </span>
-            <p className="mt-1 text-xs" style={{ color: "#999" }}>
-              청소 · 건강 · 요리, 매일의 살림을 더 스마트하게
-            </p>
-          </div>
-
-          {/* 카테고리 링크 */}
-          <div className="flex gap-5">
-            {Object.values(CATEGORIES).map((cat) => (
-              <Link
-                key={cat.slug}
-                href={`/${cat.slug}`}
-                className="text-sm font-semibold transition-colors hover:text-[#15A775]"
-                style={{ color: "#666" }}
-              >
-                {cat.emoji} {cat.name}
-              </Link>
-            ))}
-          </div>
+              {cat.name}
+            </Link>
+          ))}
         </div>
 
-        {/* 구분선 */}
-        <div style={{ borderTop: "1px solid #eeeeee", marginBottom: "1.25rem" }} />
-
-        {/* 하단 */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-2">
-          <p className="text-xs" style={{ color: "#bbb" }}>
-            © {new Date().getFullYear()} {SITE_CONFIG.name}. All rights reserved.
+        {/* 저작권 + 공정위 */}
+        <div className="flex flex-col gap-2">
+          <p style={{ fontSize: "var(--fs-xs)", color: "var(--apple-text-ter)", lineHeight: 1.6 }}>
+            Copyright © {new Date().getFullYear()} {SITE_CONFIG.name}. All rights reserved.
           </p>
-          <p className="text-xs text-center sm:text-right" style={{ color: "#bbb", maxWidth: 480 }}>
+          <p style={{ fontSize: "var(--fs-xs)", color: "var(--apple-text-ter)", lineHeight: 1.6, maxWidth: 600 }}>
             {COUPANG_DISCLAIMER}
           </p>
         </div>
