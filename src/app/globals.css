@@ -1,19 +1,11 @@
-@import "tailwindcss";
 @import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap");
+@import "tailwindcss";
 
 @plugin "@tailwindcss/typography";
 
 :root {
-  --background: #fffdf8;
-  --foreground: #3d2c1e;
-  --cream: #fff8f0;
-  --peach: #ffb085;
-  --peach-light: #ffe5d0;
-  --peach-dark: #e8824a;
-  --warm-brown: #8b5e3c;
-  --warm-gray: #a89080;
-  --card-bg: #ffffff;
-  --border: #f0ddd0;
+  --background: #ffffff;
+  --foreground: #1a1a1a;
 }
 
 @theme inline {
@@ -21,47 +13,31 @@
   --color-foreground: var(--foreground);
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: #ffffff;
+  color: #1a1a1a;
   font-family: "Nanum Gothic", "Apple SD Gothic Neo", sans-serif;
   line-height: 1.7;
 }
 
-/* 귀여운 스크롤바 */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: var(--cream);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--peach);
-  border-radius: 10px;
-}
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #f5f5f5; }
+::-webkit-scrollbar-thumb { background: #ddd; border-radius: 10px; }
 
-/* prose 커스텀 */
+/* prose */
 .prose {
-  --tw-prose-body: #4a3728;
-  --tw-prose-headings: #3d2c1e;
-  --tw-prose-links: #e8824a;
-  --tw-prose-bold: #3d2c1e;
-  --tw-prose-quotes: #8b5e3c;
-  --tw-prose-quote-borders: #ffb085;
-  --tw-prose-hr: #f0ddd0;
+  --tw-prose-body: #333;
+  --tw-prose-headings: #111;
+  --tw-prose-links: #e8724a;
+  --tw-prose-bold: #111;
+  --tw-prose-quotes: #555;
+  --tw-prose-quote-borders: #e8724a;
+  --tw-prose-hr: #eee;
 }
-
 .prose h2 {
-  border-left: 4px solid var(--peach);
+  border-left: 3px solid #e8724a;
   padding-left: 0.75rem;
   margin-top: 2rem;
-}
-
-.prose h3::before {
-  content: "✿ ";
-  color: var(--peach);
 }

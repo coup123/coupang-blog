@@ -7,40 +7,30 @@ export default function Home() {
   const posts = getAllPosts();
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-8">
+    <div className="mx-auto max-w-5xl px-6 py-10">
 
-      {/* 히어로 */}
-      <section
-        className="rounded-3xl px-8 py-10 mb-10 text-center relative overflow-hidden"
-        style={{
-          background: "linear-gradient(135deg, #fff8f0 0%, #ffdfc7 60%, #ffe9d5 100%)",
-          border: "2px solid #ffbf94",
-        }}
-      >
-        <div className="text-5xl mb-3">🏡</div>
-        <h1 className="text-2xl sm:text-3xl font-extrabold mb-2" style={{ color: "#3d2c1e" }}>
-          생활꿀팁
-        </h1>
-        <p className="text-sm sm:text-base mb-6" style={{ color: "#9e7c68" }}>
-          청소 · 건강 · 요리, 매일의 살림을 더 스마트하게 💛
-        </p>
+      {/* 카테고리 탭 헤더 — 새미네부엌 스타일 */}
+      <section className="mb-10">
+        <h1 className="text-3xl font-extrabold mb-2" style={{ color: "#1a1a1a" }}>생활꿀팁</h1>
+        <p className="text-sm mb-6" style={{ color: "#888" }}>청소 · 건강 · 요리, 매일의 살림을 더 스마트하게</p>
 
-        {/* 카테고리 3개 카드 */}
-        <div className="grid grid-cols-3 gap-3 max-w-lg mx-auto">
-          {Object.values(CATEGORIES).map((cat) => (
+        {/* 카테고리 탭 */}
+        <div className="flex gap-2 border-b border-gray-100 pb-0">
+          {Object.values(CATEGORIES).map((cat, i) => (
             <Link
               key={cat.slug}
               href={`/${cat.slug}`}
-              className="rounded-2xl p-4 text-center transition-all hover:scale-105 hover:shadow-md"
-              style={{
-                background: "#fff",
-                border: `2px solid ${cat.color.border}`,
-                boxShadow: "0 2px 8px rgba(0,0,0,0.06)",
+              className="px-5 py-2.5 text-sm font-bold rounded-t-lg transition-colors hover:bg-orange-50"
+              style={i === 0 ? {
+                background: "#fff8f5",
+                color: "#e8724a",
+                border: "1px solid #f5ddd4",
+                borderBottom: "1px solid #fff8f5",
+              } : {
+                color: "#666",
               }}
             >
-              <div className="text-2xl mb-1">{cat.emoji}</div>
-              <div className="text-xs font-extrabold" style={{ color: cat.color.text }}>{cat.name}</div>
-              <div className="text-xs mt-0.5" style={{ color: "#b89a80" }}>{cat.description}</div>
+              {cat.emoji} {cat.name}
             </Link>
           ))}
         </div>
@@ -51,29 +41,26 @@ export default function Home() {
         const catPosts = posts.filter((p) => p.category === cat.slug).slice(0, 4);
         if (catPosts.length === 0) return null;
         return (
-          <section key={cat.slug} className="mb-12">
+          <section key={cat.slug} className="mb-14">
             {/* 섹션 헤더 */}
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-between mb-5">
               <div className="flex items-center gap-2">
-                <span className="text-xl">{cat.emoji}</span>
-                <h2 className="text-lg font-extrabold" style={{ color: "#3d2c1e" }}>{cat.name}</h2>
-                <span className="text-sm" style={{ color: "#b89a80" }}>{cat.description}</span>
+                <span className="text-lg font-extrabold" style={{ color: "#1a1a1a" }}>
+                  {cat.emoji} {cat.name}
+                </span>
+                <span className="text-sm" style={{ color: "#aaa" }}>· {cat.description}</span>
               </div>
               <Link
                 href={`/${cat.slug}`}
-                className="text-xs font-bold px-3 py-1.5 rounded-full transition-all hover:scale-105"
-                style={{
-                  background: cat.color.bg,
-                  color: cat.color.text,
-                  border: `1.5px solid ${cat.color.border}`,
-                }}
+                className="text-xs font-bold hover:underline"
+                style={{ color: "#888" }}
               >
-                더 보기 →
+                전체보기 →
               </Link>
             </div>
 
-            {/* 4열 그리드 */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            {/* 4열 이미지 그리드 */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-5">
               {catPosts.map((post) => (
                 <PostCard key={post.slug} post={post} />
               ))}
@@ -82,14 +69,10 @@ export default function Home() {
         );
       })}
 
-      {/* 포스트 없을 때 */}
       {posts.length === 0 && (
-        <div
-          className="rounded-2xl py-16 text-center"
-          style={{ background: "#fff8f0", border: "2px dashed #ffd4b2" }}
-        >
-          <p className="text-4xl mb-3">🌱</p>
-          <p style={{ color: "#b89a80" }}>아직 등록된 포스팅이 없어요.</p>
+        <div className="py-20 text-center rounded-xl border border-gray-100">
+          <p className="text-3xl mb-3">🌱</p>
+          <p style={{ color: "#aaa" }}>아직 등록된 포스팅이 없어요.</p>
         </div>
       )}
     </div>
