@@ -41,45 +41,68 @@ export default async function PostPage({ params }: Props) {
       {/* ─── 아티클 히어로 ────────────────────────────── */}
       <section
         style={{
-          background: "linear-gradient(180deg, #fbfbfd 0%, #ffffff 100%)",
-          paddingTop: 60,
-          paddingBottom: 60,
-          borderBottom: "1px solid rgba(210,210,215,0.4)",
-          textAlign: "center",
+          background: "var(--bg-black)",
+          paddingTop: 64,
+          paddingBottom: 64,
+          borderBottom: "1px solid rgba(255,255,255,0.06)",
         }}
       >
         <div className="container" style={{ maxWidth: 800 }}>
           {/* 브레드크럼 */}
           <div
-            className="flex items-center justify-center gap-2 mb-6"
-            style={{ fontSize: "var(--fs-xs)", color: "var(--apple-text-ter)" }}
+            className="flex items-center gap-2 mb-8"
+            style={{
+              fontSize: "var(--fs-xs)",
+              fontWeight: 700,
+              letterSpacing: "0.1em",
+              textTransform: "uppercase",
+              color: "rgba(255,255,255,0.3)",
+            }}
           >
-            <Link href="/" className="transition-colors hover:text-[#0066cc]">홈</Link>
+            <Link
+              href="/"
+              style={{ transition: "color 0.2s" }}
+              onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "#fff")}
+              onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "rgba(255,255,255,0.3)")}
+            >
+              홈
+            </Link>
             <span>›</span>
-            <Link href={`/${category}`} className="transition-colors hover:text-[#0066cc]">
-              {cat?.iconUrl ? (
-                <span className="inline-flex items-center gap-1">
-                  <Image src={cat.iconUrl} alt="" width={12} height={12} className="object-contain" />
-                  {cat.name}
-                </span>
-              ) : (
-                <span>{cat?.name}</span>
-              )}
+            <Link
+              href={`/${category}`}
+              style={{ transition: "color 0.2s" }}
+              onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "#fff")}
+              onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "rgba(255,255,255,0.3)")}
+            >
+              {cat?.name}
             </Link>
           </div>
 
-          {/* eyebrow */}
-          <p className="text-eyebrow mb-4">{cat?.name}</p>
+          {/* 카테고리 레이블 */}
+          <div className="section-line-white" />
+          <p
+            style={{
+              fontSize: "var(--fs-xs)",
+              fontWeight: 700,
+              letterSpacing: "0.15em",
+              textTransform: "uppercase",
+              color: "var(--gold)",
+              marginBottom: 16,
+            }}
+          >
+            {cat?.name}
+          </p>
 
           {/* 제목 */}
           <h1
-            className="font-semibold mb-4 mx-auto"
             style={{
-              fontSize: "clamp(28px, 4vw, 48px)",
-              color: "var(--apple-text)",
+              fontFamily: "'Nanum Myeongjo', serif",
+              fontSize: "clamp(28px, 4.5vw, 52px)",
+              fontWeight: 800,
+              color: "var(--text-white)",
               letterSpacing: "-0.02em",
-              lineHeight: 1.12,
-              maxWidth: 720,
+              lineHeight: 1.15,
+              marginBottom: 20,
             }}
           >
             {post.meta.title}
@@ -87,16 +110,26 @@ export default async function PostPage({ params }: Props) {
 
           {/* 설명 */}
           <p
-            className="text-body mx-auto mb-6"
-            style={{ maxWidth: 580, fontSize: "var(--fs-label)", lineHeight: 1.6 }}
+            style={{
+              fontSize: "var(--fs-md)",
+              lineHeight: 1.7,
+              color: "rgba(255,255,255,0.5)",
+              maxWidth: 600,
+              marginBottom: 28,
+            }}
           >
             {post.meta.description}
           </p>
 
           {/* 메타 */}
           <div
-            className="flex items-center justify-center gap-4 flex-wrap"
-            style={{ fontSize: "var(--fs-xs)", color: "var(--apple-text-ter)" }}
+            className="flex items-center gap-4 flex-wrap"
+            style={{
+              fontSize: "var(--fs-xs)",
+              fontWeight: 700,
+              letterSpacing: "0.06em",
+              color: "rgba(255,255,255,0.3)",
+            }}
           >
             <time>{post.meta.date}</time>
             {post.meta.readingTime && (
@@ -106,7 +139,7 @@ export default async function PostPage({ params }: Props) {
               </>
             )}
             {post.meta.tags?.map((tag) => (
-              <span key={tag} className="apple-tag">{tag}</span>
+              <span key={tag} className="tag-dark">{tag}</span>
             ))}
           </div>
         </div>
@@ -114,21 +147,13 @@ export default async function PostPage({ params }: Props) {
 
       {/* ─── 썸네일 ───────────────────────────────────── */}
       {post.meta.thumbnail && (
-        <div
-          style={{
-            background: "#f5f5f7",
-            paddingTop: 40,
-            paddingBottom: 40,
-          }}
-        >
-          <div className="container" style={{ maxWidth: 900 }}>
+        <div style={{ background: "var(--bg-dark2)" }}>
+          <div className="container" style={{ maxWidth: 900, paddingTop: 0, paddingBottom: 0 }}>
             <div
               style={{
-                borderRadius: "var(--card-radius)",
-                overflow: "hidden",
                 aspectRatio: "16/9",
                 position: "relative",
-                boxShadow: "0 12px 40px rgba(0,0,0,0.12)",
+                overflow: "hidden",
               }}
             >
               <Image
@@ -144,7 +169,13 @@ export default async function PostPage({ params }: Props) {
       )}
 
       {/* ─── 본문 ─────────────────────────────────────── */}
-      <section style={{ paddingTop: 60, paddingBottom: 80 }}>
+      <section
+        style={{
+          background: "var(--bg-cream)",
+          paddingTop: 64,
+          paddingBottom: 80,
+        }}
+      >
         <div className="container" style={{ maxWidth: 800 }}>
           <div className="prose max-w-none">
             <MDXRemote source={post.content} />
@@ -153,19 +184,19 @@ export default async function PostPage({ params }: Props) {
           {/* 공정위 문구 */}
           <div
             className="mt-12 pt-6"
-            style={{ borderTop: "1px solid rgba(210,210,215,0.64)" }}
+            style={{ borderTop: "1px solid var(--border-cream)" }}
           >
             <p
               className="text-caption text-center"
-              style={{ color: "var(--apple-text-ter)" }}
+              style={{ color: "var(--text-light)", lineHeight: 1.8 }}
             >
               {COUPANG_DISCLAIMER}
             </p>
           </div>
 
           {/* 카테고리로 돌아가기 */}
-          <div className="flex justify-center mt-8">
-            <Link href={`/${category}`} className="btn-apple-outline">
+          <div className="flex justify-center mt-10">
+            <Link href={`/${category}`} className="btn-outline-dark">
               {cat?.name} 더보기
             </Link>
           </div>

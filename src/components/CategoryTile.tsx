@@ -15,55 +15,106 @@ export default function CategoryTile({ cat, count }: { cat: Cat; count: number }
   return (
     <Link
       href={`/${cat.slug}`}
-      className="group apple-card block"
+      className="group block"
       style={{
-        padding: "40px 36px",
-        minHeight: 240,
+        background: "var(--bg-dark2)",
+        padding: "44px 36px",
+        minHeight: 260,
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
-        transition: "transform 0.3s, box-shadow 0.3s",
+        transition: "background 0.25s",
         cursor: "pointer",
+        position: "relative",
+        overflow: "hidden",
+        borderTop: "1px solid rgba(255,255,255,0.06)",
       }}
       onMouseEnter={(e) => {
-        (e.currentTarget as HTMLElement).style.transform = "scale(1.01)";
-        (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 28px rgba(0,0,0,0.1)";
+        (e.currentTarget as HTMLElement).style.background = "#2a2a2a";
       }}
       onMouseLeave={(e) => {
-        (e.currentTarget as HTMLElement).style.transform = "scale(1)";
-        (e.currentTarget as HTMLElement).style.boxShadow = "none";
+        (e.currentTarget as HTMLElement).style.background = "var(--bg-dark2)";
       }}
     >
-      <div>
+      {/* 배경 대형 이모지/숫자 장식 */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          bottom: -10,
+          right: 20,
+          fontFamily: "'Nanum Myeongjo', serif",
+          fontSize: 120,
+          fontWeight: 800,
+          color: "rgba(255,255,255,0.03)",
+          lineHeight: 1,
+          pointerEvents: "none",
+          userSelect: "none",
+        }}
+      >
+        {String(count).padStart(2, "0")}
+      </div>
+
+      <div style={{ position: "relative" }}>
+        {/* 아이콘 */}
         {cat.iconUrl ? (
           <Image
             src={cat.iconUrl}
             alt={cat.name}
-            width={44}
-            height={44}
-            className="object-contain mb-4"
+            width={40}
+            height={40}
+            className="object-contain mb-5"
+            style={{ filter: "brightness(0) invert(1)", opacity: 0.7 }}
           />
         ) : (
-          <span style={{ fontSize: "2.5rem", display: "block", marginBottom: 16 }}>{cat.emoji}</span>
+          <span style={{ fontSize: "2rem", display: "block", marginBottom: 20, opacity: 0.7 }}>
+            {cat.emoji}
+          </span>
         )}
-        <p className="text-eyebrow mb-2">{cat.name}</p>
-        <h2
-          className="font-semibold mb-2"
+
+        {/* 레이블 */}
+        <p
           style={{
-            fontSize: "clamp(18px, 1.6vw, 28px)",
-            color: "var(--apple-text)",
+            fontSize: "var(--fs-xs)",
+            fontWeight: 700,
+            letterSpacing: "0.15em",
+            textTransform: "uppercase",
+            color: "var(--gold)",
+            marginBottom: 10,
+          }}
+        >
+          {cat.name}
+        </p>
+
+        {/* 설명 */}
+        <h2
+          style={{
+            fontFamily: "'Nanum Myeongjo', serif",
+            fontSize: "clamp(20px, 1.8vw, 26px)",
+            fontWeight: 800,
+            color: "var(--text-white)",
             letterSpacing: "-0.01em",
-            lineHeight: 1.25,
+            lineHeight: 1.3,
           }}
         >
           {cat.description}
         </h2>
       </div>
-      <div className="flex items-center justify-between mt-4">
-        <span style={{ fontSize: "var(--fs-xs)", color: "var(--apple-text-ter)" }}>
+
+      <div className="flex items-center justify-between" style={{ position: "relative" }}>
+        <span
+          style={{
+            fontSize: "var(--fs-xs)",
+            color: "rgba(255,255,255,0.35)",
+            fontWeight: 700,
+            letterSpacing: "0.06em",
+          }}
+        >
           {count}개의 꿀팁
         </span>
-        <span className="link-apple">보러가기</span>
+        <span className="link-white" style={{ fontSize: "var(--fs-xs)" }}>
+          보러가기
+        </span>
       </div>
     </Link>
   );

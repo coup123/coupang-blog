@@ -34,66 +34,86 @@ export default async function CategoryPage({ params }: Props) {
       {/* ─── 카테고리 히어로 ──────────────────────────── */}
       <section
         style={{
-          background: "linear-gradient(180deg, #fbfbfd 0%, #f5f5f7 100%)",
+          background: "var(--bg-black)",
           paddingTop: 80,
           paddingBottom: 80,
-          textAlign: "center",
-          borderBottom: "1px solid rgba(210,210,215,0.4)",
+          borderBottom: "1px solid rgba(255,255,255,0.06)",
         }}
       >
         <div className="container">
-          {cat.iconUrl ? (
-            <Image
-              src={cat.iconUrl}
-              alt={cat.name}
-              width={64}
-              height={64}
-              className="object-contain mx-auto mb-6"
-            />
-          ) : (
-            <span style={{ fontSize: "3.5rem", display: "block", marginBottom: 24 }}>
-              {cat.emoji}
-            </span>
-          )}
-          <p className="text-eyebrow mb-3">{cat.name}</p>
-          <h1
-            className="text-section-head mx-auto mb-4"
-            style={{ maxWidth: 640 }}
-          >
-            {cat.description}
-          </h1>
-          <p style={{ color: "var(--apple-text-ter)", fontSize: "var(--fs-sm)" }}>
-            총 {posts.length}개의 꿀팁
-          </p>
+          <div style={{ maxWidth: 600 }}>
+            <div className="section-line-white" />
+            <p className="text-section-label-white mb-4">Category</p>
+
+            {cat.iconUrl ? (
+              <Image
+                src={cat.iconUrl}
+                alt={cat.name}
+                width={52}
+                height={52}
+                className="object-contain mb-6"
+                style={{ filter: "brightness(0) invert(1)", opacity: 0.6 }}
+              />
+            ) : (
+              <span style={{ fontSize: "3rem", display: "block", marginBottom: 24, opacity: 0.6 }}>
+                {cat.emoji}
+              </span>
+            )}
+
+            <h1 className="text-hero-white mb-4">{cat.description}</h1>
+            <p
+              style={{
+                fontSize: "var(--fs-sm)",
+                color: "rgba(255,255,255,0.4)",
+                fontWeight: 700,
+                letterSpacing: "0.08em",
+              }}
+            >
+              총 {posts.length}개의 꿀팁
+            </p>
+          </div>
         </div>
       </section>
 
       {/* ─── 포스트 그리드 ────────────────────────────── */}
-      <section style={{ paddingTop: 60, paddingBottom: 100 }}>
+      <section
+        style={{
+          background: "var(--bg-dark)",
+          paddingTop: 60,
+          paddingBottom: 100,
+        }}
+      >
         <div className="container">
           {posts.length === 0 ? (
             <div
               style={{
                 textAlign: "center",
                 padding: "80px 0",
-                color: "var(--apple-text-ter)",
+                color: "rgba(255,255,255,0.3)",
               }}
             >
-              <p style={{ fontSize: "3rem", marginBottom: 16 }}>🌱</p>
-              <p style={{ fontSize: "var(--fs-label)" }}>
-                아직 등록된 포스팅이 없습니다.
+              <p
+                style={{
+                  fontFamily: "'Nanum Myeongjo', serif",
+                  fontSize: "var(--fs-2xl)",
+                  fontWeight: 800,
+                  marginBottom: 12,
+                }}
+              >
+                준비 중
               </p>
+              <p style={{ fontSize: "var(--fs-sm)" }}>아직 등록된 포스팅이 없습니다.</p>
             </div>
           ) : (
             <div
               style={{
                 display: "grid",
                 gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-                gap: 20,
+                gap: 2,
               }}
             >
               {posts.map((post) => (
-                <PostCard key={post.slug} post={post} />
+                <PostCard key={post.slug} post={post} variant="dark" />
               ))}
             </div>
           )}

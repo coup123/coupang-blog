@@ -1,51 +1,64 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Nanum+Myeongjo:wght@400;700;800&display=swap");
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-/* ─── Apple Design System ─────────────────────────────────── */
+/* ─── 브룬러브땅 Design System ────────────────────────────── */
 :root {
-  /* Colors */
-  --apple-bg:        #ffffff;
-  --apple-bg-alt:    #f5f5f7;
-  --apple-bg-dark:   #1d1d1f;
-  --apple-text:      #1d1d1f;
-  --apple-text-sec:  #6e6e73;
-  --apple-text-ter:  #86868b;
-  --apple-blue:      #0066cc;
-  --apple-blue-hover:#004499;
-  --apple-border:    rgba(210,210,215,0.64);
-  --apple-card-bg:   #f5f5f7;
+  /* Background palette */
+  --bg-cream:      #f9edd3;
+  --bg-cream-dark: #f4e8cd;
+  --bg-white:      #ffffff;
+  --bg-black:      #111111;
+  --bg-dark:       #1a1a1a;
+  --bg-dark2:      #222222;
 
-  /* Typography scale (matching Apple) */
-  --fs-hero:     80px;
-  --fs-h1:       56px;
-  --fs-h2:       40px;
-  --fs-h3:       28px;
-  --fs-h4:       21px;
-  --fs-label:    17px;
-  --fs-body:     17px;
-  --fs-sm:       14px;
-  --fs-xs:       12px;
+  /* Text */
+  --text-dark:     #333333;
+  --text-med:      #555555;
+  --text-light:    #888888;
+  --text-white:    #ffffff;
+  --text-cream:    #f9edd3;
+
+  /* Accent */
+  --red:           #c2362d;
+  --red-hover:     #a82b23;
+  --yellow:        #ffd884;
+  --gold:          #c9a85c;
+
+  /* Border */
+  --border-cream:  rgba(180, 150, 100, 0.25);
+  --border-dark:   rgba(255,255,255,0.12);
+
+  /* Typography */
+  --fs-xs:    12px;
+  --fs-sm:    13px;
+  --fs-base:  14px;
+  --fs-md:    16px;
+  --fs-lg:    18px;
+  --fs-xl:    22px;
+  --fs-2xl:   28px;
+  --fs-3xl:   36px;
+  --fs-4xl:   46px;
+  --fs-hero:  56px;
 
   /* Layout */
-  --max-w:       1200px;
-  --section-py:  100px;
-  --card-radius: 18px;
+  --max-w:        1200px;
+  --card-radius:  0px;
+  --btn-radius:   0px;
 }
 
 /* ─── Reset ───────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { font-size: 17px; scroll-behavior: smooth; }
+html { font-size: 14px; scroll-behavior: smooth; }
 
 body {
-  background: var(--apple-bg);
-  color: var(--apple-text);
-  font-family: "SF Pro KR", "SF Pro Text", "Noto Sans KR", "Apple SD Gothic Neo", -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: var(--fs-body);
-  line-height: 1.6;
+  background: var(--bg-cream);
+  color: var(--text-dark);
+  font-family: "Nanum Gothic", "Apple SD Gothic Neo", sans-serif;
+  font-size: var(--fs-base);
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 a { color: inherit; text-decoration: none; }
@@ -53,122 +66,231 @@ img { display: block; max-width: 100%; }
 button { cursor: pointer; border: none; background: none; font-family: inherit; }
 
 /* ─── Scrollbar ───────────────────────────────────────────── */
-::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 3px; }
+::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 2px; }
 
-/* ─── Apple Typography Classes ───────────────────────────── */
+/* ─── Typography ──────────────────────────────────────────── */
+
+/* 에디토리얼 대형 타이틀 — NanumMyeongjo 기반 */
 .text-hero {
-  font-size: clamp(40px, 6vw, var(--fs-hero));
-  font-weight: 600;
-  line-height: 1.05;
-  letter-spacing: -0.003em;
-  color: var(--apple-text);
+  font-family: "Nanum Myeongjo", "Nanum Gothic", serif;
+  font-size: clamp(36px, 5vw, var(--fs-hero));
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--text-dark);
+}
+
+.text-hero-white {
+  font-family: "Nanum Myeongjo", "Nanum Gothic", serif;
+  font-size: clamp(32px, 4.5vw, var(--fs-4xl));
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text-white);
+}
+
+/* 섹션 레이블 — 대문자 영문 스타일 */
+.text-section-label {
+  font-family: "Nanum Gothic", sans-serif;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-light);
+}
+
+.text-section-label-white {
+  font-family: "Nanum Gothic", sans-serif;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
 }
 
 .text-section-head {
-  font-size: clamp(28px, 4vw, var(--fs-h1));
-  font-weight: 600;
-  line-height: 1.18;
-  letter-spacing: -0.002em;
-  color: var(--apple-text);
+  font-family: "Nanum Myeongjo", serif;
+  font-size: clamp(26px, 3.5vw, var(--fs-3xl));
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--text-dark);
 }
 
-.text-card-head {
-  font-size: clamp(22px, 2.2vw, var(--fs-h3));
-  font-weight: 600;
-  line-height: 1.25;
-  letter-spacing: 0.007em;
-  color: var(--apple-text);
+.text-section-head-white {
+  font-family: "Nanum Myeongjo", serif;
+  font-size: clamp(26px, 3.5vw, var(--fs-3xl));
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--text-white);
 }
 
-.text-label {
-  font-size: var(--fs-label);
-  font-weight: 600;
-  line-height: 1.35;
-  color: var(--apple-text);
+.text-eyebrow {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
 }
 
 .text-body {
-  font-size: var(--fs-body);
-  font-weight: 400;
-  line-height: 1.6;
-  color: var(--apple-text-sec);
+  font-size: var(--fs-base);
+  line-height: 1.75;
+  color: var(--text-med);
 }
 
 .text-caption {
   font-size: var(--fs-xs);
-  font-weight: 400;
-  line-height: 1.42;
-  color: var(--apple-text-ter);
+  color: var(--text-light);
+  line-height: 1.6;
 }
 
-.text-eyebrow {
-  font-size: var(--fs-sm);
-  font-weight: 600;
-  line-height: 1.4;
-  letter-spacing: 0.01em;
-  color: var(--apple-blue);
-}
-
-/* ─── Apple Buttons ───────────────────────────────────────── */
-.btn-apple-filled {
+/* ─── Buttons ─────────────────────────────────────────────── */
+.btn-dark {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 6px;
-  background: var(--apple-blue);
-  color: #fff;
+  gap: 8px;
+  background: var(--bg-black);
+  color: var(--text-white);
   font-size: var(--fs-sm);
-  font-weight: 400;
-  padding: 8px 20px;
-  border-radius: 980px;
-  transition: background 0.2s;
-  white-space: nowrap;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 14px 32px;
+  border-radius: var(--btn-radius);
+  transition: background 0.2s, transform 0.15s;
 }
-.btn-apple-filled:hover { background: var(--apple-blue-hover); }
+.btn-dark:hover { background: #333; transform: translateY(-1px); }
 
-.btn-apple-outline {
+.btn-outline-white {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 6px;
+  gap: 8px;
   background: transparent;
-  color: var(--apple-blue);
+  color: var(--text-white);
   font-size: var(--fs-sm);
-  font-weight: 400;
-  padding: 8px 20px;
-  border-radius: 980px;
-  border: 1px solid var(--apple-blue);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 12px 28px;
+  border: 1px solid rgba(255,255,255,0.5);
+  border-radius: var(--btn-radius);
   transition: all 0.2s;
-  white-space: nowrap;
 }
-.btn-apple-outline:hover { background: var(--apple-blue); color: #fff; }
+.btn-outline-white:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
 
-.link-apple {
-  color: var(--apple-blue);
-  font-size: var(--fs-sm);
-  font-weight: 400;
+.btn-outline-dark {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
+  background: transparent;
+  color: var(--text-dark);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 12px 28px;
+  border: 1px solid var(--text-dark);
+  border-radius: var(--btn-radius);
+  transition: all 0.2s;
 }
-.link-apple:after { content: ' ›'; }
-.link-apple:hover { text-decoration: underline; }
+.btn-outline-dark:hover { background: var(--bg-black); color: #fff; }
 
-/* ─── Apple Card ──────────────────────────────────────────── */
-.apple-card {
-  background: var(--apple-card-bg);
-  border-radius: var(--card-radius);
+/* Legacy alias for post pages */
+.btn-apple-filled { @apply btn-dark; }
+.btn-apple-outline { @apply btn-outline-dark; }
+
+/* ─── Links ───────────────────────────────────────────────── */
+.link-dark {
+  color: var(--text-dark);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px solid var(--text-dark);
+  padding-bottom: 2px;
+  transition: opacity 0.2s;
+}
+.link-dark:hover { opacity: 0.6; }
+
+.link-white {
+  color: var(--text-white);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px solid rgba(255,255,255,0.5);
+  padding-bottom: 2px;
+  transition: opacity 0.2s;
+}
+.link-white:hover { opacity: 0.7; }
+
+/* Legacy alias */
+.link-apple { @apply link-dark; }
+
+/* ─── Cards ───────────────────────────────────────────────── */
+
+/* 어두운 배경 카드 (best seller 섹션용) */
+.card-dark {
+  background: var(--bg-dark2);
   overflow: hidden;
+  position: relative;
+  transition: transform 0.3s;
+}
+.card-dark:hover { transform: translateY(-4px); }
+
+/* 밝은 크림 카드 */
+.card-cream {
+  background: var(--bg-white);
+  overflow: hidden;
+  border: 1px solid var(--border-cream);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.card-cream:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.1); }
+
+/* Legacy aliases */
+.apple-card { @apply card-cream; }
+.apple-card-dark { @apply card-dark; }
+
+/* ─── Tag / Pill ──────────────────────────────────────────── */
+.tag-cream {
+  display: inline-block;
+  background: rgba(180,140,60,0.12);
+  color: var(--gold);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  padding: 3px 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
-.apple-card-dark {
-  background: var(--apple-bg-dark);
-  border-radius: var(--card-radius);
-  overflow: hidden;
-  color: #f5f5f7;
+.tag-dark {
+  display: inline-block;
+  background: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.7);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  padding: 3px 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
+
+/* Legacy alias */
+.apple-tag { @apply tag-cream; }
+
+/* ─── Divider ─────────────────────────────────────────────── */
+.divider-cream { border: none; border-top: 1px solid var(--border-cream); }
+.divider-dark { border: none; border-top: 1px solid var(--border-dark); }
+.apple-divider { @apply divider-cream; }
 
 /* ─── Layout ──────────────────────────────────────────────── */
 .container {
@@ -179,65 +301,71 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   padding-right: 24px;
 }
 
-.section-py { padding-top: var(--section-py); padding-bottom: var(--section-py); }
+/* ─── Promo Banner ────────────────────────────────────────── */
+.promo-bar {
+  background: var(--red);
+  color: #fff;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-align: center;
+  padding: 9px 16px;
+}
+
+/* ─── Section Separator Line ─────────────────────────────── */
+.section-line {
+  width: 40px;
+  height: 2px;
+  background: var(--gold);
+  margin-bottom: 16px;
+}
+
+.section-line-white {
+  width: 40px;
+  height: 2px;
+  background: rgba(255,255,255,0.4);
+  margin-bottom: 16px;
+}
 
 /* ─── Prose (MDX) ─────────────────────────────────────────── */
 .prose {
-  --tw-prose-body: #1d1d1f;
-  --tw-prose-headings: #1d1d1f;
-  --tw-prose-links: #0066cc;
-  --tw-prose-bold: #1d1d1f;
-  --tw-prose-quotes: #6e6e73;
-  --tw-prose-quote-borders: #0066cc;
-  --tw-prose-hr: rgba(210,210,215,0.64);
+  --tw-prose-body: var(--text-dark);
+  --tw-prose-headings: var(--text-dark);
+  --tw-prose-links: var(--red);
+  --tw-prose-bold: var(--text-dark);
+  --tw-prose-quotes: var(--text-med);
+  --tw-prose-quote-borders: var(--gold);
+  --tw-prose-hr: var(--border-cream);
   max-width: 740px;
-  font-size: var(--fs-body);
-  line-height: 1.76;
-  color: #1d1d1f;
+  font-size: var(--fs-base);
+  line-height: 1.85;
+  color: var(--text-dark);
 }
 .prose h1, .prose h2, .prose h3 {
-  font-weight: 600;
-  letter-spacing: -0.002em;
-  color: #1d1d1f;
+  font-family: "Nanum Myeongjo", serif;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--text-dark);
 }
-.prose h2 { font-size: 2rem; margin-top: 2.5rem; margin-bottom: 0.8rem; }
-.prose h3 { font-size: 1.4rem; margin-top: 2rem; margin-bottom: 0.6rem; }
-.prose a { color: #0066cc; }
+.prose h2 { font-size: 1.8rem; margin-top: 2.5rem; margin-bottom: 0.8rem; }
+.prose h3 { font-size: 1.3rem; margin-top: 2rem; margin-bottom: 0.6rem; }
+.prose a { color: var(--red); border-bottom: 1px solid rgba(194,54,45,0.3); padding-bottom: 1px; }
 .prose code {
-  background: #f5f5f7;
+  background: rgba(180,140,60,0.08);
+  border: 1px solid var(--border-cream);
   padding: 0.15em 0.45em;
-  border-radius: 6px;
-  font-size: 0.88em;
-  color: #1d1d1f;
+  font-size: 0.87em;
+  color: var(--text-dark);
 }
 .prose pre {
-  background: #1d1d1f;
-  color: #f5f5f7;
+  background: var(--bg-dark);
+  color: #f5f5f5;
   padding: 1.4rem 1.6rem;
-  border-radius: 12px;
   overflow-x: auto;
 }
 .prose blockquote {
-  border-left: 3px solid #0066cc;
+  border-left: 3px solid var(--gold);
   padding-left: 1.2rem;
-  color: #6e6e73;
-  font-style: normal;
-}
-
-/* ─── Divider ─────────────────────────────────────────────── */
-.apple-divider {
-  border: none;
-  border-top: 1px solid rgba(210,210,215,0.64);
-}
-
-/* ─── Tag pill ────────────────────────────────────────────── */
-.apple-tag {
-  display: inline-block;
-  background: rgba(0,102,204,0.08);
-  color: var(--apple-blue);
-  font-size: 0.7rem;
-  font-weight: 600;
-  padding: 3px 10px;
-  border-radius: 980px;
-  letter-spacing: 0.01em;
+  color: var(--text-med);
+  font-style: italic;
 }
