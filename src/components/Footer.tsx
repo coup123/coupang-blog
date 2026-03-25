@@ -3,28 +3,31 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer
-      style={{
-        background: "linear-gradient(180deg, #fff8f0 0%, #ffeedd 100%)",
-        borderTop: "2px solid #ffbf94",
-      }}
-    >
-      <div className="mx-auto max-w-3xl px-4 py-8">
-        {/* 상단: 로고 + 카테고리 */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6">
-          <div className="flex items-center gap-2">
-            <span className="text-2xl">🏡</span>
-            <span className="text-lg font-extrabold" style={{ color: "#d97a45" }}>
+    <footer style={{ background: "#fafafa", borderTop: "1px solid #eeeeee" }}>
+      <div className="mx-auto max-w-5xl px-5 py-10">
+        {/* 상단 */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mb-8">
+          {/* 로고 + 설명 */}
+          <div>
+            <span
+              className="text-lg font-extrabold"
+              style={{ color: "#111", letterSpacing: "-0.01em" }}
+            >
               {SITE_CONFIG.name}
             </span>
+            <p className="mt-1 text-xs" style={{ color: "#999" }}>
+              청소 · 건강 · 요리, 매일의 살림을 더 스마트하게
+            </p>
           </div>
-          <div className="flex gap-3">
+
+          {/* 카테고리 링크 */}
+          <div className="flex gap-5">
             {Object.values(CATEGORIES).map((cat) => (
               <Link
                 key={cat.slug}
                 href={`/${cat.slug}`}
-                className="text-sm font-bold transition-colors hover:underline"
-                style={{ color: "#b89a80" }}
+                className="text-sm font-semibold transition-colors hover:text-[#15A775]"
+                style={{ color: "#666" }}
               >
                 {cat.emoji} {cat.name}
               </Link>
@@ -33,14 +36,14 @@ export default function Footer() {
         </div>
 
         {/* 구분선 */}
-        <div style={{ borderTop: "1px dashed #ffd4b2", marginBottom: "1rem" }} />
+        <div style={{ borderTop: "1px solid #eeeeee", marginBottom: "1.25rem" }} />
 
-        {/* 하단: 저작권 + 공정위 */}
-        <div className="text-center">
-          <p className="text-xs" style={{ color: "#c4a090" }}>
-            © {new Date().getFullYear()} {SITE_CONFIG.name} · 따뜻한 살림 이야기 🌿
+        {/* 하단 */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-2">
+          <p className="text-xs" style={{ color: "#bbb" }}>
+            © {new Date().getFullYear()} {SITE_CONFIG.name}. All rights reserved.
           </p>
-          <p className="mt-1.5 text-xs" style={{ color: "#c4a090" }}>
+          <p className="text-xs text-center sm:text-right" style={{ color: "#bbb", maxWidth: 480 }}>
             {COUPANG_DISCLAIMER}
           </p>
         </div>

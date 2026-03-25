@@ -5,12 +5,20 @@ export const SITE_CONFIG = {
   author: "생활꿀팁",
 } as const;
 
-export const CATEGORIES = {
+export const CATEGORIES: Record<string, {
+  name: string;
+  emoji: string;
+  slug: string;
+  description: string;
+  iconUrl?: string;
+  color: { bg: string; text: string; border: string; accent: string };
+}> = {
   cleaning: {
     name: "청소방법",
     emoji: "🧹",
     slug: "cleaning",
     description: "집 안 구석구석 청소 노하우",
+    iconUrl: undefined, // 관리자 페이지에서 설정
     color: { bg: "#e8f5e9", text: "#2e7d32", border: "#a5d6a7", accent: "#43a047" },
   },
   health: {
@@ -18,6 +26,7 @@ export const CATEGORIES = {
     emoji: "💊",
     slug: "health",
     description: "매일 챙기는 건강 습관과 영양제",
+    iconUrl: undefined,
     color: { bg: "#e3f2fd", text: "#1565c0", border: "#90caf9", accent: "#1e88e5" },
   },
   cooking: {
@@ -25,9 +34,10 @@ export const CATEGORIES = {
     emoji: "🍳",
     slug: "cooking",
     description: "쉽고 맛있는 집밥 레시피",
+    iconUrl: undefined,
     color: { bg: "#fff3e0", text: "#e65100", border: "#ffcc80", accent: "#fb8c00" },
   },
-} as const;
+};
 
 export type CategoryKey = keyof typeof CATEGORIES;
 

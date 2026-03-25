@@ -12,46 +12,74 @@ export default function PostCard({ post }: { post: PostMeta }) {
   return (
     <Link href={`/${post.category}/${post.slug}`} className="group block">
       <article>
-        {/* 썸네일 — 이미지가 전부 */}
+        {/* 썸네일 — 1:1 정사각형 (새미네부엌 스타일) */}
         <div
-          className="relative w-full overflow-hidden rounded-xl bg-gray-100"
-          style={{ aspectRatio: "4/3" }}
+          className="relative w-full overflow-hidden bg-gray-100"
+          style={{ aspectRatio: "1/1" }}
         >
           {post.thumbnail ? (
             <Image
               src={post.thumbnail}
               alt={post.title}
               fill
-              className="object-cover transition-transform duration-300 group-hover:scale-105"
+              className="object-cover transition-transform duration-300 group-hover:scale-[1.04]"
               sizes="(max-width: 640px) 50vw, 25vw"
             />
           ) : (
             <div
-              className="w-full h-full flex items-center justify-center text-5xl"
-              style={{ background: `linear-gradient(135deg, ${cat?.color.bg ?? "#f5f5f5"}, #fff)` }}
+              className="w-full h-full flex items-center justify-center"
+              style={{
+                background: "linear-gradient(135deg, #f0f9f4 0%, #e8f7f1 100%)",
+              }}
             >
-              {cat?.emoji}
+              {cat?.iconUrl ? (
+                <Image
+                  src={cat.iconUrl}
+                  alt={cat.name}
+                  width={60}
+                  height={60}
+                  className="object-contain opacity-70"
+                />
+              ) : (
+                <span style={{ fontSize: "3rem" }}>{cat?.emoji}</span>
+              )}
             </div>
           )}
+
+          {/* 카테고리 뱃지 */}
+          <span
+            className="absolute top-2 left-2 text-xs font-semibold px-2 py-0.5 rounded"
+            style={{
+              background: "rgba(21,167,117,0.9)",
+              color: "#fff",
+              fontSize: "0.68rem",
+              letterSpacing: "0.01em",
+            }}
+          >
+            {cat?.name}
+          </span>
         </div>
 
-        {/* 텍스트 — 미니멀 */}
-        <div className="mt-3">
-          <h2 className="text-sm font-bold leading-snug line-clamp-2 transition-colors group-hover:text-orange-500" style={{ color: "#1a1a1a" }}>
+        {/* 텍스트 */}
+        <div className="mt-2.5">
+          <h2
+            className="text-sm font-bold leading-snug line-clamp-2 transition-colors group-hover:text-[#15A775]"
+            style={{ color: "#111", fontSize: "0.85rem" }}
+          >
             {post.title}
           </h2>
-          <p className="mt-1 text-xs line-clamp-1" style={{ color: "#888" }}>
+          <p
+            className="mt-1 line-clamp-1"
+            style={{ color: "#888", fontSize: "0.75rem" }}
+          >
             {post.description}
           </p>
-          {/* 준비시간 스타일 메타 태그 */}
+
+          {/* 태그 필 — 새미네부엌 스타일 */}
           {post.tags && post.tags.length > 0 && (
-            <div className="mt-2 flex flex-wrap gap-1.5">
+            <div className="mt-1.5 flex flex-wrap gap-1">
               {post.tags.slice(0, 2).map((tag) => (
-                <span
-                  key={tag}
-                  className="text-xs px-2 py-0.5 rounded-full border"
-                  style={{ color: "#888", borderColor: "#e8e8e8", background: "#fafafa" }}
-                >
+                <span key={tag} className="tag-pill">
                   {tag}
                 </span>
               ))}
