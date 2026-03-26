@@ -4,141 +4,72 @@ import Link from "next/link";
 import Image from "next/image";
 import { CATEGORIES } from "@/lib/constants";
 import type { PostMeta } from "@/lib/posts";
+import type { CategoryKey } from "@/lib/constants";
 
-interface Props {
-  post: PostMeta;
-  variant?: "dark" | "light";
-}
-
-export default function PostCard({ post, variant = "dark" }: Props) {
-  const cat = CATEGORIES[post.category];
-  const isDark = variant === "dark";
+export default function PostCard({ post }: { post: PostMeta }) {
+  const cat = CATEGORIES[post.category as CategoryKey];
+  const color = cat?.color ?? { bg: "#fafafa", text: "#555", border: "#ddd", accent: "#888" };
 
   return (
     <Link href={`/${post.category}/${post.slug}`} className="group block">
-      <article
-        style={{
-          background: isDark ? "var(--bg-dark2)" : "var(--bg-white)",
-          overflow: "hidden",
-          border: isDark ? "none" : "1px solid var(--border-cream)",
-          transition: "transform 0.3s",
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-        }}
-        onMouseEnter={(e) => {
-          (e.currentTarget as HTMLElement).style.transform = "translateY(-4px)";
-        }}
-        onMouseLeave={(e) => {
-          (e.currentTarget as HTMLElement).style.transform = "translateY(0)";
-        }}
+      <article className="rounded-2xl overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-xl bg-white"
+        style={{ border: "1.5px solid #f0e8e0", boxShadow: "0 2px 10px rgba(0,0,0,0.06)" }}
       >
         {/* 썸네일 */}
-        <div
-          className="relative w-full overflow-hidden"
-          style={{
-            aspectRatio: "4/3",
-            background: isDark ? "#2a2a2a" : "var(--bg-cream-dark)",
-          }}
-        >
+        <div className="relative w-full overflow-hidden bg-gray-100" style={{ aspectRatio: "4/3" }}>
           {post.thumbnail ? (
             <Image
               src={post.thumbnail}
               alt={post.title}
               fill
-              className="object-cover transition-transform duration-600 group-hover:scale-[1.04]"
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              className="object-cover transition-transform duration-300 group-hover:scale-105"
             />
           ) : (
             <div
-              className="w-full h-full flex items-center justify-center"
-              style={{
-                background: isDark
-                  ? "linear-gradient(145deg, #2a2a2a, #1a1a1a)"
-                  : "linear-gradient(145deg, var(--bg-cream), var(--bg-cream-dark))",
-              }}
+              className="w-full h-full flex items-center justify-center text-5xl"
+              style={{ background: `linear-gradient(135deg, ${color.bg}, #fff8f0)` }}
             >
-              {cat?.iconUrl ? (
-                <Image
-                  src={cat.iconUrl}
-                  alt={cat.name ?? ""}
-                  width={64}
-                  height={64}
-                  className="object-contain opacity-30"
-                />
-              ) : (
-                <span style={{ fontSize: "2.5rem", opacity: 0.25 }}>{cat?.emoji}</span>
-              )}
+              {cat?.emoji}
             </div>
           )}
-
-          {/* 카테고리 오버레이 태그 */}
-          <div
-            style={{
-              position: "absolute",
-              top: 14,
-              left: 14,
-            }}
+          {/* 카테고리 뱃지 */}
+          <span
+            className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-full text-xs font-extrabold"
+            style={{ background: color.bg, color: color.text, border: `1.5px solid ${color.border}` }}
           >
-            <span className={isDark ? "tag-dark" : "tag-cream"}>
-              {cat?.name}
-            </span>
-          </div>
+            {cat?.emoji} {cat?.name}
+          </span>
         </div>
 
-        {/* 텍스트 영역 */}
-        <div
-          className="flex flex-col flex-1"
-          style={{ padding: "20px 22px 22px" }}
-        >
-          {/* 제목 */}
+        {/* 텍스트 */}
+        <div className="p-3.5">
           <h2
-            className="font-bold leading-snug mb-3"
-            style={{
-              fontFamily: "'Nanum Myeongjo', serif",
-              fontSize: "var(--fs-lg)",
-              letterSpacing: "-0.01em",
-              color: isDark ? "var(--text-white)" : "var(--text-dark)",
-              lineHeight: 1.4,
-            }}
+            className="text-sm font-extrabold leading-snug line-clamp-2 transition-colors group-hover:text-orange-500"
+            style={{ color: "#3d2c1e" }}
           >
             {post.title}
           </h2>
-
-          {/* 설명 */}
-          <p
-            className="line-clamp-2 flex-1"
-            style={{
-              fontSize: "var(--fs-sm)",
-              lineHeight: 1.65,
-              color: isDark ? "rgba(255,255,255,0.5)" : "var(--text-med)",
-            }}
-          >
+          <p className="mt-1 text-xs line-clamp-2" style={{ color: "#9e7c68" }}>
             {post.description}
           </p>
 
-          {/* 하단 메타 */}
-          <div
-            className="flex items-center justify-between mt-5 pt-4"
-            style={{
-              borderTop: isDark
-                ? "1px solid rgba(255,255,255,0.08)"
-                : "1px solid var(--border-cream)",
-            }}
-          >
-            <time
-              style={{
-                fontSize: "var(--fs-xs)",
-                color: isDark ? "rgba(255,255,255,0.35)" : "var(--text-light)",
-                fontWeight: 700,
-                letterSpacing: "0.06em",
-              }}
-            >
-              {post.date}
-            </time>
-            <span className={isDark ? "link-white" : "link-dark"} style={{ fontSize: "var(--fs-xs)" }}>
-              읽기
-            </span>
+          {/* 태그 */}
+          {post.tags && post.tags.length > 0 && (
+            <div className="mt-2 flex flex-wrap gap-1">
+              {post.tags.slice(0, 2).map((tag) => (
+                <span
+                  key={tag}
+                  className="text-xs px-2 py-0.5 rounded-full"
+                  style={{ background: "#fff0e6", color: "#c9713a" }}
+                >
+                  #{tag}
+                </span>
+              ))}
+            </div>
+          )}
+
+          <div className="mt-2 text-xs" style={{ color: "#b89a80" }}>
+            {post.readingTime}
           </div>
         </div>
       </article>
