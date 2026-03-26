@@ -200,8 +200,25 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .btn-outline-dark:hover { background: var(--bg-black); color: #fff; }
 
 /* Legacy alias for post pages */
-.btn-apple-filled { @apply btn-dark; }
-.btn-apple-outline { @apply btn-outline-dark; }
+.btn-apple-filled {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--bg-black); color: var(--text-white);
+  font-size: var(--fs-sm); font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 14px 32px; border-radius: var(--btn-radius);
+  transition: background 0.2s, transform 0.15s;
+}
+.btn-apple-filled:hover { background: #333; transform: translateY(-1px); }
+
+.btn-apple-outline {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; color: var(--text-dark);
+  font-size: var(--fs-sm); font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 12px 28px; border: 1px solid var(--text-dark);
+  border-radius: var(--btn-radius); transition: all 0.2s;
+}
+.btn-apple-outline:hover { background: var(--bg-black); color: #fff; }
 
 /* ─── Links ───────────────────────────────────────────────── */
 .link-dark {
@@ -235,7 +252,14 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .link-white:hover { opacity: 0.7; }
 
 /* Legacy alias */
-.link-apple { @apply link-dark; }
+.link-apple {
+  color: var(--text-dark); font-size: var(--fs-sm); font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  display: inline-flex; align-items: center; gap: 6px;
+  border-bottom: 1px solid var(--text-dark); padding-bottom: 2px;
+  transition: opacity 0.2s;
+}
+.link-apple:hover { opacity: 0.6; }
 
 /* ─── Cards ───────────────────────────────────────────────── */
 
@@ -258,8 +282,18 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .card-cream:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.1); }
 
 /* Legacy aliases */
-.apple-card { @apply card-cream; }
-.apple-card-dark { @apply card-dark; }
+.apple-card {
+  background: var(--bg-white); overflow: hidden;
+  border: 1px solid var(--border-cream);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.apple-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.1); }
+
+.apple-card-dark {
+  background: var(--bg-dark2); overflow: hidden;
+  position: relative; transition: transform 0.3s;
+}
+.apple-card-dark:hover { transform: translateY(-4px); }
 
 /* ─── Tag / Pill ──────────────────────────────────────────── */
 .tag-cream {
@@ -285,12 +319,32 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 
 /* Legacy alias */
-.apple-tag { @apply tag-cream; }
+.apple-tag {
+  display: inline-block; background: rgba(180,140,60,0.12); color: var(--gold);
+  font-size: var(--fs-xs); font-weight: 700; padding: 3px 10px;
+  letter-spacing: 0.05em; text-transform: uppercase;
+}
 
 /* ─── Divider ─────────────────────────────────────────────── */
 .divider-cream { border: none; border-top: 1px solid var(--border-cream); }
 .divider-dark { border: none; border-top: 1px solid var(--border-dark); }
-.apple-divider { @apply divider-cream; }
+.apple-divider { border: none; border-top: 1px solid var(--border-cream); }
+
+/* ─── Breadcrumb ──────────────────────────────────────────── */
+.breadcrumb-link {
+  color: rgba(255,255,255,0.3);
+  transition: color 0.2s;
+}
+.breadcrumb-link:hover { color: #fff; }
+
+.footer-cat-link {
+  font-size: var(--fs-sm);
+  color: rgba(255,255,255,0.6);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  transition: color 0.2s;
+}
+.footer-cat-link:hover { color: #fff; }
 
 /* ─── Layout ──────────────────────────────────────────────── */
 .container {
