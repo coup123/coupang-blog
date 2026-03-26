@@ -1,67 +1,464 @@
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Nanum+Myeongjo:wght@400;700;800&display=swap");
 @import "tailwindcss";
-@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap");
-
 @plugin "@tailwindcss/typography";
 
+/* ─── 브룬러브땅 Design System ────────────────────────────── */
 :root {
-  --background: #fffdf8;
-  --foreground: #3d2c1e;
-  --cream: #fff8f0;
-  --peach: #ffb085;
-  --peach-light: #ffe5d0;
-  --peach-dark: #e8824a;
-  --warm-brown: #8b5e3c;
-  --warm-gray: #a89080;
-  --card-bg: #ffffff;
-  --border: #f0ddd0;
+  /* Background palette */
+  --bg-cream:      #f9edd3;
+  --bg-cream-dark: #f4e8cd;
+  --bg-white:      #ffffff;
+  --bg-black:      #111111;
+  --bg-dark:       #1a1a1a;
+  --bg-dark2:      #222222;
+
+  /* Text */
+  --text-dark:     #333333;
+  --text-med:      #555555;
+  --text-light:    #888888;
+  --text-white:    #ffffff;
+  --text-cream:    #f9edd3;
+
+  /* Accent */
+  --red:           #c2362d;
+  --red-hover:     #a82b23;
+  --yellow:        #ffd884;
+  --gold:          #c9a85c;
+
+  /* Border */
+  --border-cream:  rgba(180, 150, 100, 0.25);
+  --border-dark:   rgba(255,255,255,0.12);
+
+  /* Typography */
+  --fs-xs:    12px;
+  --fs-sm:    13px;
+  --fs-base:  14px;
+  --fs-md:    16px;
+  --fs-lg:    18px;
+  --fs-xl:    22px;
+  --fs-2xl:   28px;
+  --fs-3xl:   36px;
+  --fs-4xl:   46px;
+  --fs-hero:  56px;
+
+  /* Layout */
+  --max-w:        1200px;
+  --card-radius:  0px;
+  --btn-radius:   0px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-}
+/* ─── Reset ───────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-* {
-  box-sizing: border-box;
-}
+html { font-size: 14px; scroll-behavior: smooth; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--bg-cream);
+  color: var(--text-dark);
   font-family: "Nanum Gothic", "Apple SD Gothic Neo", sans-serif;
+  font-size: var(--fs-base);
   line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* 귀여운 스크롤바 */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: var(--cream);
-}
-::-webkit-scrollbar-thumb {
-  background: var(--peach);
-  border-radius: 10px;
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+/* ─── Scrollbar ───────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 2px; }
+
+/* ─── Typography ──────────────────────────────────────────── */
+
+/* 에디토리얼 대형 타이틀 — NanumMyeongjo 기반 */
+.text-hero {
+  font-family: "Nanum Myeongjo", "Nanum Gothic", serif;
+  font-size: clamp(36px, 5vw, var(--fs-hero));
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--text-dark);
 }
 
-/* prose 커스텀 */
+.text-hero-white {
+  font-family: "Nanum Myeongjo", "Nanum Gothic", serif;
+  font-size: clamp(32px, 4.5vw, var(--fs-4xl));
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--text-white);
+}
+
+/* 섹션 레이블 — 대문자 영문 스타일 */
+.text-section-label {
+  font-family: "Nanum Gothic", sans-serif;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-light);
+}
+
+.text-section-label-white {
+  font-family: "Nanum Gothic", sans-serif;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+}
+
+.text-section-head {
+  font-family: "Nanum Myeongjo", serif;
+  font-size: clamp(26px, 3.5vw, var(--fs-3xl));
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--text-dark);
+}
+
+.text-section-head-white {
+  font-family: "Nanum Myeongjo", serif;
+  font-size: clamp(26px, 3.5vw, var(--fs-3xl));
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--text-white);
+}
+
+.text-eyebrow {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.text-body {
+  font-size: var(--fs-base);
+  line-height: 1.75;
+  color: var(--text-med);
+}
+
+.text-caption {
+  font-size: var(--fs-xs);
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+/* ─── Buttons ─────────────────────────────────────────────── */
+.btn-dark {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-black);
+  color: var(--text-white);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 14px 32px;
+  border-radius: var(--btn-radius);
+  transition: background 0.2s, transform 0.15s;
+}
+.btn-dark:hover { background: #333; transform: translateY(-1px); }
+
+.btn-outline-white {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--text-white);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 12px 28px;
+  border: 1px solid rgba(255,255,255,0.5);
+  border-radius: var(--btn-radius);
+  transition: all 0.2s;
+}
+.btn-outline-white:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
+
+.btn-outline-dark {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--text-dark);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 12px 28px;
+  border: 1px solid var(--text-dark);
+  border-radius: var(--btn-radius);
+  transition: all 0.2s;
+}
+.btn-outline-dark:hover { background: var(--bg-black); color: #fff; }
+
+/* Legacy alias for post pages */
+.btn-apple-filled { @apply btn-dark; }
+.btn-apple-outline { @apply btn-outline-dark; }
+
+/* ─── Links ───────────────────────────────────────────────── */
+.link-dark {
+  color: var(--text-dark);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px solid var(--text-dark);
+  padding-bottom: 2px;
+  transition: opacity 0.2s;
+}
+.link-dark:hover { opacity: 0.6; }
+
+.link-white {
+  color: var(--text-white);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px solid rgba(255,255,255,0.5);
+  padding-bottom: 2px;
+  transition: opacity 0.2s;
+}
+.link-white:hover { opacity: 0.7; }
+
+/* Legacy alias */
+.link-apple { @apply link-dark; }
+
+/* ─── Cards ───────────────────────────────────────────────── */
+
+/* 어두운 배경 카드 (best seller 섹션용) */
+.card-dark {
+  background: var(--bg-dark2);
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.3s;
+}
+.card-dark:hover { transform: translateY(-4px); }
+
+/* 밝은 크림 카드 */
+.card-cream {
+  background: var(--bg-white);
+  overflow: hidden;
+  border: 1px solid var(--border-cream);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.card-cream:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.1); }
+
+/* Legacy aliases */
+.apple-card { @apply card-cream; }
+.apple-card-dark { @apply card-dark; }
+
+/* ─── Tag / Pill ──────────────────────────────────────────── */
+.tag-cream {
+  display: inline-block;
+  background: rgba(180,140,60,0.12);
+  color: var(--gold);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  padding: 3px 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.tag-dark {
+  display: inline-block;
+  background: rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.7);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  padding: 3px 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* Legacy alias */
+.apple-tag { @apply tag-cream; }
+
+/* ─── Divider ─────────────────────────────────────────────── */
+.divider-cream { border: none; border-top: 1px solid var(--border-cream); }
+.divider-dark { border: none; border-top: 1px solid var(--border-dark); }
+.apple-divider { @apply divider-cream; }
+
+/* ─── Layout ──────────────────────────────────────────────── */
+.container {
+  max-width: var(--max-w);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+/* ─── Promo Banner ────────────────────────────────────────── */
+.promo-bar {
+  background: var(--red);
+  color: #fff;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-align: center;
+  padding: 9px 16px;
+}
+
+/* ─── Section Separator Line ─────────────────────────────── */
+.section-line {
+  width: 40px;
+  height: 2px;
+  background: var(--gold);
+  margin-bottom: 16px;
+}
+
+.section-line-white {
+  width: 40px;
+  height: 2px;
+  background: rgba(255,255,255,0.4);
+  margin-bottom: 16px;
+}
+
+/* ─── Gradient Backgrounds ───────────────────────────────── */
+
+/* 히어로: 따뜻한 크림 → 골드 → 연한 로즈 */
+.grad-hero {
+  background: linear-gradient(
+    135deg,
+    #fdf6e8 0%,
+    #f9edd3 30%,
+    #f2e0b8 60%,
+    #eddfc0 100%
+  );
+}
+
+/* 다크 섹션: 딥그린 → 블랙 */
+.grad-dark {
+  background: linear-gradient(
+    160deg,
+    #1a2e16 0%,
+    #111111 50%,
+    #0e1a0b 100%
+  );
+}
+
+/* 카드 크림: 흰색 → 연크림 */
+.grad-card-light {
+  background: linear-gradient(145deg, #ffffff 0%, #fdf6e8 100%);
+}
+
+/* 카드 다크: 진다크 → 살짝 그린 */
+.grad-card-dark {
+  background: linear-gradient(145deg, #242424 0%, #1e2e1a 100%);
+}
+
+/* 섹션 구분용 페이드 오버레이 */
+.section-fade-bottom::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 120px;
+  background: linear-gradient(to bottom, transparent, var(--bg-black));
+  pointer-events: none;
+}
+
+/* 골드 shimmer 텍스트 */
+.text-gold-gradient {
+  background: linear-gradient(90deg, #c9a85c 0%, #f0d080 50%, #c9a85c 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+/* 크림 섹션 내 따뜻한 구분선 그라데이션 */
+.grad-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(180,140,60,0.4), transparent);
+  border: none;
+}
+
+/* 히어로 배경 블롭 */
+.hero-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  opacity: 0.45;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-12px); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.animate-float    { animation: float 5s ease-in-out infinite; }
+.animate-fade-up  { animation: fadeUp 0.7s ease forwards; }
+.animate-scale-in { animation: scaleIn 0.5s ease forwards; }
+
+/* ─── Prose (MDX) ─────────────────────────────────────────── */
 .prose {
-  --tw-prose-body: #4a3728;
-  --tw-prose-headings: #3d2c1e;
-  --tw-prose-links: #e8824a;
-  --tw-prose-bold: #3d2c1e;
-  --tw-prose-quotes: #8b5e3c;
-  --tw-prose-quote-borders: #ffb085;
-  --tw-prose-hr: #f0ddd0;
+  --tw-prose-body: var(--text-dark);
+  --tw-prose-headings: var(--text-dark);
+  --tw-prose-links: var(--red);
+  --tw-prose-bold: var(--text-dark);
+  --tw-prose-quotes: var(--text-med);
+  --tw-prose-quote-borders: var(--gold);
+  --tw-prose-hr: var(--border-cream);
+  max-width: 740px;
+  font-size: var(--fs-base);
+  line-height: 1.85;
+  color: var(--text-dark);
 }
-
-.prose h2 {
-  border-left: 4px solid var(--peach);
-  padding-left: 0.75rem;
-  margin-top: 2rem;
+.prose h1, .prose h2, .prose h3 {
+  font-family: "Nanum Myeongjo", serif;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--text-dark);
 }
-
-.prose h3::before {
-  content: "✿ ";
-  color: var(--peach);
+.prose h2 { font-size: 1.8rem; margin-top: 2.5rem; margin-bottom: 0.8rem; }
+.prose h3 { font-size: 1.3rem; margin-top: 2rem; margin-bottom: 0.6rem; }
+.prose a { color: var(--red); border-bottom: 1px solid rgba(194,54,45,0.3); padding-bottom: 1px; }
+.prose code {
+  background: rgba(180,140,60,0.08);
+  border: 1px solid var(--border-cream);
+  padding: 0.15em 0.45em;
+  font-size: 0.87em;
+  color: var(--text-dark);
+}
+.prose pre {
+  background: var(--bg-dark);
+  color: #f5f5f5;
+  padding: 1.4rem 1.6rem;
+  overflow-x: auto;
+}
+.prose blockquote {
+  border-left: 3px solid var(--gold);
+  padding-left: 1.2rem;
+  color: var(--text-med);
+  font-style: italic;
 }
