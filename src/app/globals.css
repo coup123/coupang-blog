@@ -2,32 +2,45 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-/* ─── 브룬러브땅 Design System ────────────────────────────── */
+/* ─── 3-Color Design System ────────────────────────────── */
 :root {
   /* Background palette */
-  --bg-cream:      #f9edd3;
-  --bg-cream-dark: #f4e8cd;
+  --bg-yellow:     #fff9c9;
+  --bg-yellow-dark:#fff3a0;
   --bg-white:      #ffffff;
-  --bg-black:      #111111;
-  --bg-dark:       #1a1a1a;
-  --bg-dark2:      #222222;
+  --bg-teal:       #02b9c9;
+  --bg-teal-dark:  #019aab;
+  --bg-teal-deep:  #017585;
+
+  /* Legacy aliases for component compatibility */
+  --bg-cream:      #fff9c9;
+  --bg-cream-dark: #fff3a0;
+  --bg-black:      #02b9c9;
+  --bg-dark:       #019aab;
+  --bg-dark2:      #017585;
 
   /* Text */
-  --text-dark:     #333333;
-  --text-med:      #555555;
-  --text-light:    #888888;
+  --text-dark:     #1a3a3f;
+  --text-med:      #2a5560;
+  --text-light:    #5a8a90;
   --text-white:    #ffffff;
-  --text-cream:    #f9edd3;
+  --text-cream:    #fff9c9;
 
   /* Accent */
-  --red:           #c2362d;
-  --red-hover:     #a82b23;
-  --yellow:        #ffd884;
-  --gold:          #c9a85c;
+  --teal:          #02b9c9;
+  --teal-hover:    #019aab;
+  --teal-light:    #7de8f0;
+  --teal-glow:     rgba(2, 185, 201, 0.25);
+
+  /* Legacy accent aliases */
+  --red:           #02b9c9;
+  --red-hover:     #019aab;
+  --yellow:        #fff3a0;
+  --gold:          #02b9c9;
 
   /* Border */
-  --border-cream:  rgba(180, 150, 100, 0.25);
-  --border-dark:   rgba(255,255,255,0.12);
+  --border-cream:  rgba(2, 185, 201, 0.2);
+  --border-dark:   rgba(255,255,255,0.2);
 
   /* Typography */
   --fs-xs:    12px;
@@ -53,7 +66,7 @@
 html { font-size: 14px; scroll-behavior: smooth; }
 
 body {
-  background: var(--bg-cream);
+  background: var(--bg-yellow);
   color: var(--text-dark);
   font-family: "Nanum Gothic", "Apple SD Gothic Neo", sans-serif;
   font-size: var(--fs-base);
@@ -68,11 +81,10 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 /* ─── Scrollbar ───────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.2); border-radius: 2px; }
+::-webkit-scrollbar-thumb { background: rgba(2,185,201,0.4); border-radius: 2px; }
 
 /* ─── Typography ──────────────────────────────────────────── */
 
-/* 에디토리얼 대형 타이틀 — NanumMyeongjo 기반 */
 .text-hero {
   font-family: "Nanum Myeongjo", "Nanum Gothic", serif;
   font-size: clamp(36px, 5vw, var(--fs-hero));
@@ -91,7 +103,6 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   color: var(--text-white);
 }
 
-/* 섹션 레이블 — 대문자 영문 스타일 */
 .text-section-label {
   font-family: "Nanum Gothic", sans-serif;
   font-size: var(--fs-sm);
@@ -107,7 +118,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.5);
+  color: rgba(255,255,255,0.7);
 }
 
 .text-section-head {
@@ -133,7 +144,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--teal);
 }
 
 .text-body {
@@ -153,7 +164,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: var(--bg-black);
+  background: var(--teal);
   color: var(--text-white);
   font-size: var(--fs-sm);
   font-weight: 700;
@@ -163,7 +174,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   border-radius: var(--btn-radius);
   transition: background 0.2s, transform 0.15s;
 }
-.btn-dark:hover { background: #333; transform: translateY(-1px); }
+.btn-dark:hover { background: var(--teal-hover); transform: translateY(-1px); }
 
 .btn-outline-white {
   display: inline-flex;
@@ -176,53 +187,52 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   letter-spacing: 0.08em;
   text-transform: uppercase;
   padding: 12px 28px;
-  border: 1px solid rgba(255,255,255,0.5);
+  border: 1px solid rgba(255,255,255,0.6);
   border-radius: var(--btn-radius);
   transition: all 0.2s;
 }
-.btn-outline-white:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
+.btn-outline-white:hover { background: rgba(255,255,255,0.15); border-color: #fff; }
 
 .btn-outline-dark {
   display: inline-flex;
   align-items: center;
   gap: 8px;
   background: transparent;
-  color: var(--text-dark);
+  color: var(--teal);
   font-size: var(--fs-sm);
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   padding: 12px 28px;
-  border: 1px solid var(--text-dark);
+  border: 1px solid var(--teal);
   border-radius: var(--btn-radius);
   transition: all 0.2s;
 }
-.btn-outline-dark:hover { background: var(--bg-black); color: #fff; }
+.btn-outline-dark:hover { background: var(--teal); color: #fff; }
 
-/* Legacy alias for post pages */
 .btn-apple-filled {
   display: inline-flex; align-items: center; gap: 8px;
-  background: var(--bg-black); color: var(--text-white);
+  background: var(--teal); color: var(--text-white);
   font-size: var(--fs-sm); font-weight: 700;
   letter-spacing: 0.08em; text-transform: uppercase;
   padding: 14px 32px; border-radius: var(--btn-radius);
   transition: background 0.2s, transform 0.15s;
 }
-.btn-apple-filled:hover { background: #333; transform: translateY(-1px); }
+.btn-apple-filled:hover { background: var(--teal-hover); transform: translateY(-1px); }
 
 .btn-apple-outline {
   display: inline-flex; align-items: center; gap: 8px;
-  background: transparent; color: var(--text-dark);
+  background: transparent; color: var(--teal);
   font-size: var(--fs-sm); font-weight: 700;
   letter-spacing: 0.08em; text-transform: uppercase;
-  padding: 12px 28px; border: 1px solid var(--text-dark);
+  padding: 12px 28px; border: 1px solid var(--teal);
   border-radius: var(--btn-radius); transition: all 0.2s;
 }
-.btn-apple-outline:hover { background: var(--bg-black); color: #fff; }
+.btn-apple-outline:hover { background: var(--teal); color: #fff; }
 
 /* ─── Links ───────────────────────────────────────────────── */
 .link-dark {
-  color: var(--text-dark);
+  color: var(--teal);
   font-size: var(--fs-sm);
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -230,11 +240,11 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  border-bottom: 1px solid var(--text-dark);
+  border-bottom: 1px solid var(--teal);
   padding-bottom: 2px;
   transition: opacity 0.2s;
 }
-.link-dark:hover { opacity: 0.6; }
+.link-dark:hover { opacity: 0.7; }
 
 .link-white {
   color: var(--text-white);
@@ -245,52 +255,47 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  border-bottom: 1px solid rgba(255,255,255,0.5);
+  border-bottom: 1px solid rgba(255,255,255,0.6);
   padding-bottom: 2px;
   transition: opacity 0.2s;
 }
 .link-white:hover { opacity: 0.7; }
 
-/* Legacy alias */
 .link-apple {
-  color: var(--text-dark); font-size: var(--fs-sm); font-weight: 700;
+  color: var(--teal); font-size: var(--fs-sm); font-weight: 700;
   letter-spacing: 0.08em; text-transform: uppercase;
   display: inline-flex; align-items: center; gap: 6px;
-  border-bottom: 1px solid var(--text-dark); padding-bottom: 2px;
+  border-bottom: 1px solid var(--teal); padding-bottom: 2px;
   transition: opacity 0.2s;
 }
-.link-apple:hover { opacity: 0.6; }
+.link-apple:hover { opacity: 0.7; }
 
 /* ─── Cards ───────────────────────────────────────────────── */
-
-/* 어두운 배경 카드 (best seller 섹션용) */
 .card-dark {
-  background: var(--bg-dark2);
+  background: var(--teal);
   overflow: hidden;
   position: relative;
   transition: transform 0.3s;
 }
 .card-dark:hover { transform: translateY(-4px); }
 
-/* 밝은 크림 카드 */
 .card-cream {
   background: var(--bg-white);
   overflow: hidden;
   border: 1px solid var(--border-cream);
   transition: transform 0.3s, box-shadow 0.3s;
 }
-.card-cream:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.1); }
+.card-cream:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(2,185,201,0.15); }
 
-/* Legacy aliases */
 .apple-card {
   background: var(--bg-white); overflow: hidden;
   border: 1px solid var(--border-cream);
   transition: transform 0.3s, box-shadow 0.3s;
 }
-.apple-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.1); }
+.apple-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(2,185,201,0.15); }
 
 .apple-card-dark {
-  background: var(--bg-dark2); overflow: hidden;
+  background: var(--teal); overflow: hidden;
   position: relative; transition: transform 0.3s;
 }
 .apple-card-dark:hover { transform: translateY(-4px); }
@@ -298,8 +303,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 /* ─── Tag / Pill ──────────────────────────────────────────── */
 .tag-cream {
   display: inline-block;
-  background: rgba(180,140,60,0.12);
-  color: var(--gold);
+  background: rgba(2,185,201,0.12);
+  color: var(--teal);
   font-size: var(--fs-xs);
   font-weight: 700;
   padding: 3px 10px;
@@ -309,8 +314,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 .tag-dark {
   display: inline-block;
-  background: rgba(255,255,255,0.1);
-  color: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.9);
   font-size: var(--fs-xs);
   font-weight: 700;
   padding: 3px 10px;
@@ -318,9 +323,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   text-transform: uppercase;
 }
 
-/* Legacy alias */
 .apple-tag {
-  display: inline-block; background: rgba(180,140,60,0.12); color: var(--gold);
+  display: inline-block; background: rgba(2,185,201,0.12); color: var(--teal);
   font-size: var(--fs-xs); font-weight: 700; padding: 3px 10px;
   letter-spacing: 0.05em; text-transform: uppercase;
 }
@@ -332,14 +336,14 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 /* ─── Breadcrumb ──────────────────────────────────────────── */
 .breadcrumb-link {
-  color: rgba(255,255,255,0.3);
+  color: rgba(255,255,255,0.6);
   transition: color 0.2s;
 }
 .breadcrumb-link:hover { color: #fff; }
 
 .footer-cat-link {
   font-size: var(--fs-sm);
-  color: rgba(255,255,255,0.6);
+  color: rgba(255,255,255,0.7);
   font-weight: 700;
   letter-spacing: 0.05em;
   transition: color 0.2s;
@@ -357,7 +361,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 /* ─── Promo Banner ────────────────────────────────────────── */
 .promo-bar {
-  background: var(--red);
+  background: var(--teal);
   color: #fff;
   font-size: var(--fs-xs);
   font-weight: 700;
@@ -370,48 +374,48 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .section-line {
   width: 40px;
   height: 2px;
-  background: var(--gold);
+  background: var(--teal);
   margin-bottom: 16px;
 }
 
 .section-line-white {
   width: 40px;
   height: 2px;
-  background: rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.5);
   margin-bottom: 16px;
 }
 
 /* ─── Gradient Backgrounds ───────────────────────────────── */
 
-/* 히어로: 따뜻한 크림 → 골드 → 연한 로즈 */
+/* 히어로: 연노랑 → 흰색 */
 .grad-hero {
   background: linear-gradient(
     135deg,
-    #fdf6e8 0%,
-    #f9edd3 30%,
-    #f2e0b8 60%,
-    #eddfc0 100%
+    #fffde0 0%,
+    #fff9c9 40%,
+    #fffef5 80%,
+    #ffffff 100%
   );
 }
 
-/* 다크 섹션: 딥그린 → 블랙 */
+/* 다크 섹션: 틸 그라데이션 */
 .grad-dark {
   background: linear-gradient(
     160deg,
-    #1a2e16 0%,
-    #111111 50%,
-    #0e1a0b 100%
+    #02b9c9 0%,
+    #019aab 50%,
+    #017585 100%
   );
 }
 
-/* 카드 크림: 흰색 → 연크림 */
+/* 카드 밝음: 흰색 → 연노랑 */
 .grad-card-light {
-  background: linear-gradient(145deg, #ffffff 0%, #fdf6e8 100%);
+  background: linear-gradient(145deg, #ffffff 0%, #fffde0 100%);
 }
 
-/* 카드 다크: 진다크 → 살짝 그린 */
+/* 카드 다크: 틸 그라데이션 */
 .grad-card-dark {
-  background: linear-gradient(145deg, #242424 0%, #1e2e1a 100%);
+  background: linear-gradient(145deg, #02b9c9 0%, #017585 100%);
 }
 
 /* 섹션 구분용 페이드 오버레이 */
@@ -420,13 +424,13 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   position: absolute;
   bottom: 0; left: 0; right: 0;
   height: 120px;
-  background: linear-gradient(to bottom, transparent, var(--bg-black));
+  background: linear-gradient(to bottom, transparent, var(--teal-deep));
   pointer-events: none;
 }
 
-/* 골드 shimmer 텍스트 */
+/* 틸 shimmer 텍스트 */
 .text-gold-gradient {
-  background: linear-gradient(90deg, #c9a85c 0%, #f0d080 50%, #c9a85c 100%);
+  background: linear-gradient(90deg, #02b9c9 0%, #7de8f0 50%, #02b9c9 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -434,10 +438,10 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   animation: shimmer 3s linear infinite;
 }
 
-/* 크림 섹션 내 따뜻한 구분선 그라데이션 */
+/* 틸 구분선 그라데이션 */
 .grad-divider {
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(180,140,60,0.4), transparent);
+  background: linear-gradient(90deg, transparent, rgba(2,185,201,0.4), transparent);
   border: none;
 }
 
@@ -447,7 +451,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   border-radius: 50%;
   filter: blur(80px);
   pointer-events: none;
-  opacity: 0.45;
+  opacity: 0.35;
 }
 
 @keyframes shimmer {
@@ -478,10 +482,10 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .prose {
   --tw-prose-body: var(--text-dark);
   --tw-prose-headings: var(--text-dark);
-  --tw-prose-links: var(--red);
+  --tw-prose-links: var(--teal);
   --tw-prose-bold: var(--text-dark);
   --tw-prose-quotes: var(--text-med);
-  --tw-prose-quote-borders: var(--gold);
+  --tw-prose-quote-borders: var(--teal);
   --tw-prose-hr: var(--border-cream);
   max-width: 740px;
   font-size: var(--fs-base);
@@ -496,22 +500,22 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 .prose h2 { font-size: 1.8rem; margin-top: 2.5rem; margin-bottom: 0.8rem; }
 .prose h3 { font-size: 1.3rem; margin-top: 2rem; margin-bottom: 0.6rem; }
-.prose a { color: var(--red); border-bottom: 1px solid rgba(194,54,45,0.3); padding-bottom: 1px; }
+.prose a { color: var(--teal); border-bottom: 1px solid rgba(2,185,201,0.3); padding-bottom: 1px; }
 .prose code {
-  background: rgba(180,140,60,0.08);
+  background: rgba(2,185,201,0.08);
   border: 1px solid var(--border-cream);
   padding: 0.15em 0.45em;
   font-size: 0.87em;
   color: var(--text-dark);
 }
 .prose pre {
-  background: var(--bg-dark);
+  background: #017585;
   color: #f5f5f5;
   padding: 1.4rem 1.6rem;
   overflow-x: auto;
 }
 .prose blockquote {
-  border-left: 3px solid var(--gold);
+  border-left: 3px solid var(--teal);
   padding-left: 1.2rem;
   color: var(--text-med);
   font-style: italic;

@@ -41,10 +41,10 @@ export default async function PostPage({ params }: Props) {
       {/* ─── 아티클 히어로 ────────────────────────────── */}
       <section
         style={{
-          background: "var(--bg-black)",
+          background: "var(--bg-teal)",
           paddingTop: 64,
           paddingBottom: 64,
-          borderBottom: "1px solid rgba(255,255,255,0.06)",
+          borderBottom: "1px solid rgba(255,255,255,0.1)",
         }}
       >
         <div className="container" style={{ maxWidth: 800 }}>
@@ -133,7 +133,7 @@ export default async function PostPage({ params }: Props) {
 
       {/* ─── 썸네일 ───────────────────────────────────── */}
       {post.meta.thumbnail && (
-        <div style={{ background: "var(--bg-dark2)" }}>
+        <div style={{ background: "var(--bg-teal-dark)" }}>
           <div className="container" style={{ maxWidth: 900, paddingTop: 0, paddingBottom: 0 }}>
             <div
               style={{
@@ -157,7 +157,7 @@ export default async function PostPage({ params }: Props) {
       {/* ─── 본문 ─────────────────────────────────────── */}
       <section
         style={{
-          background: "var(--bg-cream)",
+          background: "var(--bg-yellow)",
           paddingTop: 64,
           paddingBottom: 80,
         }}
