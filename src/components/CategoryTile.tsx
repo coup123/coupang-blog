@@ -17,94 +17,109 @@ export default function CategoryTile({ cat, count }: { cat: Cat; count: number }
     <Link href={`/${cat.slug}`} className="group block">
       <motion.div
         style={{
-          background: "linear-gradient(145deg, #ffffff 0%, #fff9c9 100%)",
-          padding: "44px 36px",
-          minHeight: 260,
+          background: "var(--yellow)",
+          padding: "52px 40px 44px",
+          minHeight: 280,
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
           position: "relative",
           overflow: "hidden",
-          borderTop: "1px solid rgba(2,185,201,0.15)",
+          borderTop: "1px solid rgba(0,0,0,0.06)",
           cursor: "pointer",
         }}
         whileHover={{
-          background: "linear-gradient(145deg, #fff9c9 0%, #fff3a0 100%)",
-          y: -4,
-          transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] },
+          background: "var(--teal)",
+          transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] },
         }}
       >
-        {/* 배경 장식 숫자 */}
+        {/* 대형 배경 숫자 */}
         <div
           aria-hidden
           style={{
-            position: "absolute", bottom: -10, right: 20,
+            position: "absolute",
+            bottom: -20, right: 16,
             fontFamily: "'Nanum Myeongjo', serif",
-            fontSize: 120, fontWeight: 800,
-            color: "rgba(2,185,201,0.1)",
+            fontSize: 140, fontWeight: 800,
+            color: "rgba(0,0,0,0.04)",
             lineHeight: 1, pointerEvents: "none", userSelect: "none",
+            transition: "color 0.3s",
           }}
+          className="group-hover:text-white/5"
         >
           {String(count).padStart(2, "0")}
         </div>
 
-        {/* 배경 블롭 */}
-        <div style={{
-          position: "absolute", bottom: -40, right: -40,
-          width: 160, height: 160, borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(2,185,201,0.15) 0%, transparent 70%)",
-          pointerEvents: "none",
-        }} />
-
         <div style={{ position: "relative" }}>
-          {/* 아이콘 */}
+          {/* 아이콘/이모지 */}
           {cat.iconUrl ? (
-            <Image
-              src={cat.iconUrl} alt={cat.name}
-              width={40} height={40}
-              className="object-contain mb-5"
-              style={{ opacity: 0.7 }}
-            />
+            <Image src={cat.iconUrl} alt={cat.name} width={36} height={36}
+              className="object-contain mb-6" style={{ opacity: 0.7 }} />
           ) : (
             <motion.span
-              style={{ fontSize: "2rem", display: "block", marginBottom: 20 }}
-              whileHover={{ rotate: [0, -8, 8, 0], transition: { duration: 0.4 } }}
+              style={{ fontSize: "2.2rem", display: "block", marginBottom: 24, lineHeight: 1 }}
+              whileHover={{ scale: 1.15, rotate: [0, -6, 6, 0], transition: { duration: 0.4 } }}
             >
               {cat.emoji}
             </motion.span>
           )}
 
-          <p style={{
-            fontSize: "var(--fs-xs)", fontWeight: 700,
-            letterSpacing: "0.15em", textTransform: "uppercase" as const,
-            color: "var(--teal)", marginBottom: 10,
-          }}>
+          <motion.p
+            style={{
+              fontSize: "10px", fontWeight: 700,
+              letterSpacing: "0.18em", textTransform: "uppercase" as const,
+              color: "var(--teal)", marginBottom: 12,
+              transition: "color 0.3s",
+            }}
+            whileHover={{ color: "rgba(255,255,255,0.7)" }}
+          >
             {cat.name}
-          </p>
-          <h2 style={{
-            fontFamily: "'Nanum Myeongjo', serif",
-            fontSize: "clamp(20px, 1.8vw, 26px)",
-            fontWeight: 800, color: "var(--text-dark)",
-            letterSpacing: "-0.01em", lineHeight: 1.3,
-          }}>
+          </motion.p>
+
+          <motion.h2
+            style={{
+              fontFamily: "'Nanum Myeongjo', serif",
+              fontSize: "clamp(20px, 1.8vw, 26px)",
+              fontWeight: 800,
+              color: "var(--ink)",
+              letterSpacing: "-0.01em",
+              lineHeight: 1.3,
+              transition: "color 0.3s",
+            }}
+            whileHover={{ color: "#fff" }}
+          >
             {cat.description}
-          </h2>
+          </motion.h2>
         </div>
 
-        <div className="flex items-center justify-between" style={{ position: "relative" }}>
-          <span style={{
-            fontSize: "var(--fs-xs)", color: "var(--text-light)",
-            fontWeight: 700, letterSpacing: "0.06em",
-          }}>
-            {count}개의 꿀팁
-          </span>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", position: "relative", marginTop: 32 }}>
           <motion.span
-            className="link-dark"
-            style={{ fontSize: "var(--fs-xs)" }}
-            whileHover={{ x: 4 }}
+            style={{
+              fontSize: "10px",
+              color: "var(--ink-light)",
+              fontWeight: 700,
+              letterSpacing: "0.1em",
+              textTransform: "uppercase" as const,
+              transition: "color 0.3s",
+            }}
+            whileHover={{ color: "rgba(255,255,255,0.6)" }}
+          >
+            {count}개의 꿀팁
+          </motion.span>
+          <motion.span
+            style={{
+              fontSize: "10px",
+              fontWeight: 700,
+              letterSpacing: "0.1em",
+              textTransform: "uppercase" as const,
+              color: "var(--teal)",
+              display: "flex", alignItems: "center", gap: 4,
+              transition: "color 0.3s",
+            }}
+            whileHover={{ color: "#fff", x: 4 }}
             transition={{ duration: 0.15 }}
           >
-            보러가기
+            보러가기 →
           </motion.span>
         </div>
       </motion.div>

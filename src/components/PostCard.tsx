@@ -11,7 +11,7 @@ interface Props {
   variant?: "dark" | "light";
 }
 
-export default function PostCard({ post, variant = "dark" }: Props) {
+export default function PostCard({ post, variant = "light" }: Props) {
   const cat = CATEGORIES[post.category];
   const isDark = variant === "dark";
 
@@ -19,25 +19,30 @@ export default function PostCard({ post, variant = "dark" }: Props) {
     <Link href={`/${post.category}/${post.slug}`} className="group block h-full">
       <motion.article
         style={{
-          background: isDark
-            ? "linear-gradient(145deg, #02b9c9 0%, #017585 100%)"
-            : "linear-gradient(145deg, #ffffff 0%, #fff9c9 100%)",
+          background: isDark ? "rgba(255,255,255,0.06)" : "var(--white)",
           overflow: "hidden",
-          border: isDark ? "none" : "1px solid rgba(2,185,201,0.15)",
+          border: isDark ? "1px solid rgba(255,255,255,0.1)" : "1px solid rgba(0,0,0,0.06)",
           height: "100%",
           display: "flex",
           flexDirection: "column",
+          cursor: "pointer",
         }}
-        whileHover={{ y: -6, transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] } }}
+        whileHover={{
+          y: -6,
+          boxShadow: isDark
+            ? "0 20px 50px rgba(0,0,0,0.3)"
+            : "0 20px 50px rgba(2,185,201,0.12)",
+          transition: { duration: 0.28, ease: [0.22, 1, 0.36, 1] }
+        }}
       >
         {/* 썸네일 */}
         <div
           className="relative w-full overflow-hidden"
           style={{
-            aspectRatio: "4/3",
+            aspectRatio: "3/2",
             background: isDark
-              ? "linear-gradient(135deg, #019aab, #017585)"
-              : "linear-gradient(135deg, #fff9c9, #fff3a0)",
+              ? "linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03))"
+              : "linear-gradient(135deg, var(--yellow), var(--yellow-deep))",
           }}
         >
           {post.thumbnail ? (
@@ -45,77 +50,108 @@ export default function PostCard({ post, variant = "dark" }: Props) {
               src={post.thumbnail}
               alt={post.title}
               fill
-              className="object-cover transition-transform duration-700 group-hover:scale-[1.06]"
+              className="object-cover transition-transform duration-700 group-hover:scale-[1.05]"
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center">
-              <span style={{ fontSize: "2.8rem", opacity: 0.2 }}>{cat?.emoji}</span>
+              <span style={{ fontSize: "3rem", opacity: 0.25 }}>{cat?.emoji}</span>
             </div>
           )}
 
-          {/* 카테고리 태그 + 그라데이션 오버레이 */}
+          {/* 오버레이 */}
           <div style={{
             position: "absolute", inset: 0,
             background: isDark
-              ? "linear-gradient(to top, rgba(1,117,133,0.7) 0%, transparent 50%)"
-              : "linear-gradient(to top, rgba(255,243,160,0.4) 0%, transparent 50%)",
+              ? "linear-gradient(to top, rgba(1,100,115,0.8) 0%, transparent 60%)"
+              : "linear-gradient(to top, rgba(255,243,160,0.5) 0%, transparent 60%)",
           }} />
 
-          <div style={{ position: "absolute", top: 14, left: 14 }}>
-            <span className={isDark ? "tag-dark" : "tag-cream"}>{cat?.name}</span>
+          {/* 카테고리 태그 */}
+          <div style={{ position: "absolute", top: 16, left: 16 }}>
+            <span
+              style={{
+                display: "inline-block",
+                background: isDark ? "rgba(255,255,255,0.15)" : "var(--teal)",
+                color: "#fff",
+                fontSize: "10px",
+                fontWeight: 700,
+                padding: "4px 10px",
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                backdropFilter: "blur(8px)",
+              }}
+            >
+              {cat?.name}
+            </span>
           </div>
         </div>
 
-        {/* 텍스트 */}
-        <div className="flex flex-col flex-1" style={{ padding: "20px 22px 22px" }}>
-          <h2
-            className="font-bold leading-snug mb-3"
-            style={{
-              fontFamily: "'Nanum Myeongjo', serif",
-              fontSize: "var(--fs-lg)",
-              letterSpacing: "-0.01em",
-              color: isDark ? "var(--text-white)" : "var(--text-dark)",
-              lineHeight: 1.4,
-              transition: "color 0.2s",
-            }}
-          >
+        {/* 텍스트 영역 */}
+        <div style={{
+          padding: "24px 26px 26px",
+          display: "flex", flexDirection: "column", flex: 1,
+        }}>
+          <time style={{
+            fontSize: "10px",
+            fontWeight: 700,
+            letterSpacing: "0.12em",
+            textTransform: "uppercase",
+            color: isDark ? "rgba(255,255,255,0.4)" : "var(--teal)",
+            marginBottom: 10,
+            display: "block",
+          }}>
+            {post.date}
+          </time>
+
+          <h2 style={{
+            fontFamily: "'Nanum Myeongjo', serif",
+            fontSize: "clamp(16px, 1.4vw, 20px)",
+            fontWeight: 800,
+            lineHeight: 1.4,
+            letterSpacing: "-0.01em",
+            color: isDark ? "#fff" : "var(--ink)",
+            marginBottom: 12,
+            transition: "color 0.2s",
+          }}>
             {post.title}
           </h2>
-          <p
-            className="line-clamp-2 flex-1"
-            style={{
-              fontSize: "var(--fs-sm)",
-              lineHeight: 1.65,
-              color: isDark ? "rgba(255,255,255,0.45)" : "var(--text-med)",
-            }}
-          >
+
+          <p style={{
+            fontSize: "var(--fs-sm)",
+            lineHeight: 1.7,
+            color: isDark ? "rgba(255,255,255,0.55)" : "var(--ink-light)",
+            flex: 1,
+            display: "-webkit-box",
+            WebkitLineClamp: 2,
+            WebkitBoxOrient: "vertical" as const,
+            overflow: "hidden",
+          }}>
             {post.description}
           </p>
 
-          {/* 하단 */}
-          <div
-            className="flex items-center justify-between mt-5 pt-4"
-            style={{
-              borderTop: isDark
-                ? "1px solid rgba(255,255,255,0.15)"
-                : "1px solid rgba(2,185,201,0.15)",
-            }}
-          >
-            <time style={{
-              fontSize: "var(--fs-xs)",
-              color: isDark ? "rgba(255,255,255,0.3)" : "var(--text-light)",
-              fontWeight: 700, letterSpacing: "0.06em",
-            }}>
-              {post.date}
-            </time>
+          {/* 하단 읽기 링크 */}
+          <div style={{
+            marginTop: 20,
+            paddingTop: 16,
+            borderTop: isDark ? "1px solid rgba(255,255,255,0.08)" : "1px solid rgba(0,0,0,0.06)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "flex-end",
+          }}>
             <motion.span
-              className={isDark ? "link-white" : "link-dark"}
-              style={{ fontSize: "var(--fs-xs)" }}
-              whileHover={{ x: 3 }}
+              style={{
+                fontSize: "10px",
+                fontWeight: 700,
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                color: isDark ? "rgba(255,255,255,0.6)" : "var(--teal)",
+                display: "flex", alignItems: "center", gap: 4,
+              }}
+              whileHover={{ x: 4 }}
               transition={{ duration: 0.15 }}
             >
-              읽기
+              읽기 →
             </motion.span>
           </div>
         </div>

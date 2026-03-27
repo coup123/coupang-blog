@@ -30,47 +30,68 @@ export default async function CategoryPage({ params }: Props) {
 
   return (
     <>
-      {/* 히어로 */}
-      <section
-        style={{
-          background: "linear-gradient(160deg, #02b9c9 0%, #019aab 60%, #017585 100%)",
-          paddingTop: 80,
-          paddingBottom: 80,
-          position: "relative",
-          overflow: "hidden",
-        }}
-      >
+      {/* ── 히어로 ── */}
+      <section style={{
+        background: "var(--ink)",
+        paddingTop: 100,
+        paddingBottom: 100,
+        position: "relative",
+        overflow: "hidden",
+        minHeight: "50vh",
+        display: "flex",
+        alignItems: "center",
+      }}>
         {/* 배경 블롭 */}
         <div style={{
-          position: "absolute", top: -60, right: -60,
+          position: "absolute", top: "50%", right: "5%",
+          transform: "translateY(-50%)",
           width: 400, height: 400, borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(2,185,201,0.12) 0%, transparent 70%)",
           pointerEvents: "none",
         }} />
+        {/* 대형 이모지 장식 */}
+        <div style={{
+          position: "absolute",
+          right: "8%", top: "50%", transform: "translateY(-50%)",
+          fontSize: "clamp(120px, 18vw, 220px)",
+          opacity: 0.05,
+          lineHeight: 1,
+          pointerEvents: "none",
+          userSelect: "none",
+        }}>
+          {cat.emoji}
+        </div>
 
-        <div className="container">
+        <div className="container" style={{ position: "relative", zIndex: 1 }}>
           <Reveal variant="fadeUp">
-            <div style={{ maxWidth: 600 }}>
-              <div className="section-line-white" />
-              <p className="text-section-label-white mb-4">Category</p>
-              <span style={{ fontSize: "3rem", display: "block", marginBottom: 24, opacity: 0.5 }}>
-                {cat.emoji}
-              </span>
-              <h1
-                style={{
-                  fontFamily: "'Nanum Myeongjo', serif",
-                  fontSize: "clamp(32px, 4.5vw, 52px)",
-                  fontWeight: 800, color: "var(--text-white)",
-                  letterSpacing: "-0.02em", lineHeight: 1.15,
-                  marginBottom: 16,
-                }}
-              >
+            <div style={{ maxWidth: 640 }}>
+              <p style={{
+                fontSize: "10px",
+                fontWeight: 700,
+                letterSpacing: "0.18em",
+                textTransform: "uppercase",
+                color: "var(--teal)",
+                marginBottom: 24,
+              }}>
+                ✦ Category
+              </p>
+              <h1 style={{
+                fontFamily: "'Nanum Myeongjo', serif",
+                fontSize: "clamp(36px, 5vw, 64px)",
+                fontWeight: 800,
+                color: "#fff",
+                letterSpacing: "-0.03em",
+                lineHeight: 1.1,
+                marginBottom: 20,
+              }}>
                 {cat.description}
               </h1>
               <p style={{
-                fontSize: "var(--fs-sm)", fontWeight: 700,
-                letterSpacing: "0.08em",
+                fontSize: "var(--fs-sm)",
                 color: "rgba(255,255,255,0.35)",
+                fontWeight: 700,
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
               }}>
                 총 {posts.length}개의 꿀팁
               </p>
@@ -79,24 +100,31 @@ export default async function CategoryPage({ params }: Props) {
         </div>
       </section>
 
-      {/* 그리드 */}
-      <section style={{ background: "linear-gradient(180deg, #ffffff 0%, #fff9c9 100%)", paddingTop: 60, paddingBottom: 100 }}>
+      {/* ── 포스트 그리드 ── */}
+      <section style={{
+        background: "var(--yellow)",
+        paddingTop: 80,
+        paddingBottom: 120,
+        borderTop: "none",
+      }}>
         <div className="container">
           {posts.length === 0 ? (
             <Reveal variant="fadeIn">
-              <div style={{ textAlign: "center", padding: "80px 0", color: "rgba(2,185,201,0.5)" }}>
-                <p style={{ fontFamily: "'Nanum Myeongjo', serif", fontSize: "var(--fs-2xl)", fontWeight: 800, marginBottom: 12 }}>준비 중</p>
-                <p style={{ fontSize: "var(--fs-sm)" }}>아직 등록된 포스팅이 없습니다.</p>
+              <div style={{
+                textAlign: "center", padding: "100px 0",
+                color: "rgba(2,185,201,0.4)",
+              }}>
+                <div style={{ fontSize: "4rem", marginBottom: 24, opacity: 0.3 }}>{cat.emoji}</div>
+                <p style={{ fontFamily: "'Nanum Myeongjo', serif", fontSize: "var(--fs-2xl)", fontWeight: 800, marginBottom: 12, color: "var(--ink-light)" }}>준비 중</p>
+                <p style={{ fontSize: "var(--fs-sm)", color: "var(--ink-light)" }}>아직 등록된 포스팅이 없습니다.</p>
               </div>
             </Reveal>
           ) : (
-            <StaggerReveal
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-                gap: 2,
-              }}
-            >
+            <StaggerReveal style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+              gap: 3,
+            }}>
               {posts.map((post) => (
                 <StaggerItem key={post.slug}>
                   <PostCard post={post} variant="light" />
