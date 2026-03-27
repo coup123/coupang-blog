@@ -3,87 +3,50 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer style={{
-      background: "var(--yellow)",
-      color: "var(--ink)",
-      paddingTop: 72,
-      paddingBottom: 48,
-      borderTop: "1px solid rgba(0,0,0,0.08)",
-    }}>
-      <div className="container">
+    <footer className="site-footer">
+      <div className="container" style={{ paddingTop: 64, paddingBottom: 48 }}>
         {/* 상단 */}
-        <div
-          className="flex flex-col md:flex-row md:items-start justify-between gap-10 pb-12"
-          style={{ borderBottom: "1px solid rgba(0,0,0,0.08)" }}
-        >
-          {/* 로고 + 설명 */}
-          <div style={{ maxWidth: 320 }}>
-            <Link href="/" style={{
-              fontFamily: "'Nanum Myeongjo', serif",
-              fontSize: 22,
-              fontWeight: 800,
-              color: "var(--ink)",
-              letterSpacing: "-0.02em",
-              display: "flex",
-              alignItems: "center",
-              gap: 8,
-              marginBottom: 16,
-            }}>
-              <span style={{
-                display: "inline-block", width: 7, height: 7,
-                background: "var(--teal)", borderRadius: "50%",
-              }} />
-              {SITE_CONFIG.name}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 48, flexWrap: "wrap", gap: 40 }}>
+          {/* 브랜드 */}
+          <div style={{ maxWidth: 300, display: "flex", flexDirection: "column", gap: 16 }}>
+            <Link href="/" style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <span style={{ width: 8, height: 8, borderRadius: "50%", background: "var(--teal)", display: "inline-block" }} />
+              <span style={{ fontFamily: "var(--font-sans)", fontSize: 18, fontWeight: 800, color: "#ffffff" }}>
+                {SITE_CONFIG.name}
+              </span>
             </Link>
-            <p style={{
-              fontSize: "var(--fs-sm)",
-              color: "var(--ink-light)",
-              lineHeight: 1.8,
-              fontWeight: 300,
-            }}>
-              청소부터 건강 루틴, 요리 레시피까지.<br />
-              실생활에 바로 쓰이는 검증된 꿀팁.
+            <p style={{ fontFamily: "var(--font-sans)", fontSize: 13, color: "#666666", lineHeight: 1.8 }}>
+              청소, 건강, 요리 — 더 나은 일상을 위한 검증된 꿀팁
             </p>
           </div>
 
           {/* 카테고리 링크 */}
-          <div>
-            <p style={{
-              fontSize: "10px",
-              fontWeight: 700,
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              color: "var(--ink-light)",
-              marginBottom: 20,
-            }}>
-              Categories
+          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            <p style={{ fontSize: 11, fontWeight: 700, color: "#555555", letterSpacing: "0.1em", textTransform: "uppercase", fontFamily: "var(--font-sans)" }}>
+              카테고리
             </p>
-            <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-              {Object.values(CATEGORIES).map((cat) => (
-                <Link key={cat.slug} href={`/${cat.slug}`}
-                  className="footer-cat-link"
-                  style={{ display: "flex", alignItems: "center", gap: 8 }}
-                >
-                  {cat.iconUrl
-                    ? <img src={cat.iconUrl} alt="" width={20} height={20} style={{ objectFit: "contain", opacity: 0.8 }} />
-                    : <span style={{ opacity: 0.6 }}>{cat.emoji}</span>
-                  }
-                  {cat.name}
-                </Link>
-              ))}
-            </div>
+            {Object.values(CATEGORIES).map((cat) => (
+              <Link key={cat.slug} href={`/${cat.slug}`} className="footer-link"
+                style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                {cat.iconUrl
+                  ? <img src={cat.iconUrl} alt="" width={18} height={18} style={{ objectFit: "contain", opacity: 0.7 }} />
+                  : <span style={{ opacity: 0.6 }}>{cat.emoji}</span>
+                }
+                {cat.name}
+              </Link>
+            ))}
           </div>
         </div>
 
+        {/* 구분선 */}
+        <div style={{ height: 1, background: "#222222", marginBottom: 28 }} />
+
         {/* 하단 */}
-        <div style={{ paddingTop: 28, display: "flex", flexDirection: "column", gap: 8 }}>
-          <p style={{ fontSize: "10px", color: "var(--ink-light)", letterSpacing: "0.06em" }}>
-            Copyright © {new Date().getFullYear()} {SITE_CONFIG.name}. All rights reserved.
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 12 }}>
+          <p style={{ fontSize: 12, color: "#444444", fontFamily: "var(--font-sans)" }}>
+            © 2026 {SITE_CONFIG.name}. All rights reserved.
           </p>
-          <p style={{
-            fontSize: "10px", color: "var(--ink-light)",
-            lineHeight: 1.8, maxWidth: 560,
-          }}>
+          <p style={{ fontSize: 11, color: "#333333", fontFamily: "var(--font-sans)", maxWidth: 580, textAlign: "right", lineHeight: 1.7 }}>
             {COUPANG_DISCLAIMER}
           </p>
         </div>

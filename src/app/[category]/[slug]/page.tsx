@@ -39,93 +39,72 @@ export default async function PostPage({ params }: Props) {
   return (
     <>
       {/* ─── 아티클 히어로 ────────────────────────────── */}
-      <section
-        style={{
-          background: "var(--bg-teal)",
-          paddingTop: 64,
-          paddingBottom: 64,
-          borderBottom: "1px solid rgba(255,255,255,0.1)",
-        }}
-      >
+      <section style={{
+        background: "var(--cream)",
+        paddingTop: 140,
+        paddingBottom: 64,
+        borderBottom: "1px solid rgba(0,0,0,0.06)",
+      }}>
         <div className="container" style={{ maxWidth: 800 }}>
           {/* 브레드크럼 */}
-          <div
-            className="flex items-center gap-2 mb-8"
-            style={{
-              fontSize: "var(--fs-xs)",
-              fontWeight: 700,
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-              color: "rgba(255,255,255,0.3)",
-            }}
-          >
-            <Link href="/" className="breadcrumb-link">홈</Link>
-            <span>›</span>
-            <Link href={`/${category}`} className="breadcrumb-link">{cat?.name}</Link>
+          <div style={{
+            display: "flex", alignItems: "center", gap: 8,
+            marginBottom: 32,
+            fontFamily: "var(--font-sans)",
+            fontSize: "var(--fs-xs)",
+            fontWeight: 600,
+            letterSpacing: "0.08em",
+            textTransform: "uppercase",
+            color: "var(--ink-light)",
+          }}>
+            <Link href="/" style={{ color: "var(--ink-light)", transition: "color 0.2s" }}>홈</Link>
+            <span style={{ opacity: 0.4 }}>›</span>
+            <Link href={`/${category}`} style={{ color: "var(--ink-light)", transition: "color 0.2s" }}>{cat?.name}</Link>
           </div>
 
           {/* 카테고리 레이블 */}
-          <div className="section-line-white" />
-          <p
-            style={{
-              fontSize: "var(--fs-xs)",
-              fontWeight: 700,
-              letterSpacing: "0.15em",
-              textTransform: "uppercase",
-              color: "var(--gold)",
-              marginBottom: 16,
-            }}
-          >
-            {cat?.name}
-          </p>
+          <p className="t-label" style={{ marginBottom: 20 }}>{cat?.name}</p>
 
           {/* 제목 */}
-          <h1
-            style={{
-              fontFamily: "'Nanum Myeongjo', serif",
-              fontSize: "clamp(28px, 4.5vw, 52px)",
-              fontWeight: 800,
-              color: "var(--text-white)",
-              letterSpacing: "-0.02em",
-              lineHeight: 1.15,
-              marginBottom: 20,
-            }}
-          >
+          <h1 style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: "clamp(28px, 4.5vw, 52px)",
+            fontWeight: 900,
+            color: "var(--ink)",
+            letterSpacing: "-0.025em",
+            lineHeight: 1.2,
+            marginBottom: 20,
+          }}>
             {post.meta.title}
           </h1>
 
           {/* 설명 */}
-          <p
-            style={{
+          {post.meta.description && (
+            <p style={{
+              fontFamily: "var(--font-sans)",
               fontSize: "var(--fs-md)",
-              lineHeight: 1.7,
-              color: "rgba(255,255,255,0.5)",
+              lineHeight: 1.8,
+              color: "var(--ink-light)",
               maxWidth: 600,
               marginBottom: 28,
-            }}
-          >
-            {post.meta.description}
-          </p>
+              fontWeight: 400,
+            }}>
+              {post.meta.description}
+            </p>
+          )}
 
           {/* 메타 */}
-          <div
-            className="flex items-center gap-4 flex-wrap"
-            style={{
-              fontSize: "var(--fs-xs)",
-              fontWeight: 700,
-              letterSpacing: "0.06em",
-              color: "rgba(255,255,255,0.3)",
-            }}
-          >
+          <div style={{
+            display: "flex", alignItems: "center", gap: 16, flexWrap: "wrap",
+            fontFamily: "var(--font-sans)",
+            fontSize: "var(--fs-xs)",
+            fontWeight: 600,
+            letterSpacing: "0.06em",
+            color: "var(--ink-muted)",
+          }}>
             <time>{post.meta.date}</time>
-            {post.meta.readingTime && (
-              <>
-                <span>·</span>
-                <span>{post.meta.readingTime}</span>
-              </>
-            )}
             {post.meta.tags?.map((tag) => (
-              <span key={tag} className="tag-dark">{tag}</span>
+              <span key={tag} className="tag">{tag}</span>
             ))}
           </div>
         </div>
@@ -133,15 +112,9 @@ export default async function PostPage({ params }: Props) {
 
       {/* ─── 썸네일 ───────────────────────────────────── */}
       {post.meta.thumbnail && (
-        <div style={{ background: "var(--bg-teal-dark)" }}>
+        <div style={{ background: "var(--white-pure)" }}>
           <div className="container" style={{ maxWidth: 900, paddingTop: 0, paddingBottom: 0 }}>
-            <div
-              style={{
-                aspectRatio: "16/9",
-                position: "relative",
-                overflow: "hidden",
-              }}
-            >
+            <div style={{ aspectRatio: "16/9", position: "relative", overflow: "hidden" }}>
               <Image
                 src={post.meta.thumbnail}
                 alt={post.meta.title}
@@ -155,34 +128,35 @@ export default async function PostPage({ params }: Props) {
       )}
 
       {/* ─── 본문 ─────────────────────────────────────── */}
-      <section
-        style={{
-          background: "var(--bg-yellow)",
-          paddingTop: 64,
-          paddingBottom: 80,
-        }}
-      >
+      <section style={{
+        background: "var(--white-pure)",
+        paddingTop: 64,
+        paddingBottom: 80,
+      }}>
         <div className="container" style={{ maxWidth: 800 }}>
-          <div className="prose max-w-none">
+          <div className="prose">
             <MDXRemote source={post.content} />
           </div>
 
           {/* 공정위 문구 */}
-          <div
-            className="mt-12 pt-6"
-            style={{ borderTop: "1px solid var(--border-cream)" }}
-          >
-            <p
-              className="text-caption text-center"
-              style={{ color: "var(--text-light)", lineHeight: 1.8 }}
-            >
+          <div style={{
+            marginTop: 48, paddingTop: 24,
+            borderTop: "1px solid rgba(0,0,0,0.08)",
+          }}>
+            <p style={{
+              fontFamily: "var(--font-sans)",
+              fontSize: "var(--fs-xs)",
+              color: "var(--ink-muted)",
+              lineHeight: 1.8,
+              textAlign: "center",
+            }}>
               {COUPANG_DISCLAIMER}
             </p>
           </div>
 
           {/* 카테고리로 돌아가기 */}
-          <div className="flex justify-center mt-10">
-            <Link href={`/${category}`} className="btn-outline-dark">
+          <div style={{ display: "flex", justifyContent: "center", marginTop: 40 }}>
+            <Link href={`/${category}`} className="btn-outline">
               {cat?.name} 더보기
             </Link>
           </div>
