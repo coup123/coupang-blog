@@ -4,16 +4,17 @@ import Link from "next/link";
 export default function Footer() {
   return (
     <footer style={{
-      background: "var(--ink)",
-      color: "#fff",
+      background: "var(--yellow)",
+      color: "var(--ink)",
       paddingTop: 72,
       paddingBottom: 48,
+      borderTop: "1px solid rgba(0,0,0,0.08)",
     }}>
       <div className="container">
         {/* 상단 */}
         <div
           className="flex flex-col md:flex-row md:items-start justify-between gap-10 pb-12"
-          style={{ borderBottom: "1px solid rgba(255,255,255,0.08)" }}
+          style={{ borderBottom: "1px solid rgba(0,0,0,0.08)" }}
         >
           {/* 로고 + 설명 */}
           <div style={{ maxWidth: 320 }}>
@@ -21,7 +22,7 @@ export default function Footer() {
               fontFamily: "'Nanum Myeongjo', serif",
               fontSize: 22,
               fontWeight: 800,
-              color: "#fff",
+              color: "var(--ink)",
               letterSpacing: "-0.02em",
               display: "flex",
               alignItems: "center",
@@ -36,7 +37,7 @@ export default function Footer() {
             </Link>
             <p style={{
               fontSize: "var(--fs-sm)",
-              color: "rgba(255,255,255,0.4)",
+              color: "var(--ink-light)",
               lineHeight: 1.8,
               fontWeight: 300,
             }}>
@@ -52,7 +53,7 @@ export default function Footer() {
               fontWeight: 700,
               letterSpacing: "0.18em",
               textTransform: "uppercase",
-              color: "rgba(255,255,255,0.25)",
+              color: "var(--ink-light)",
               marginBottom: 20,
             }}>
               Categories
@@ -63,7 +64,10 @@ export default function Footer() {
                   className="footer-cat-link"
                   style={{ display: "flex", alignItems: "center", gap: 8 }}
                 >
-                  <span style={{ opacity: 0.6 }}>{cat.emoji}</span>
+                  {cat.iconUrl
+                    ? <img src={cat.iconUrl} alt="" width={20} height={20} style={{ objectFit: "contain", opacity: 0.8 }} />
+                    : <span style={{ opacity: 0.6 }}>{cat.emoji}</span>
+                  }
                   {cat.name}
                 </Link>
               ))}
@@ -73,11 +77,11 @@ export default function Footer() {
 
         {/* 하단 */}
         <div style={{ paddingTop: 28, display: "flex", flexDirection: "column", gap: 8 }}>
-          <p style={{ fontSize: "10px", color: "rgba(255,255,255,0.2)", letterSpacing: "0.06em" }}>
+          <p style={{ fontSize: "10px", color: "var(--ink-light)", letterSpacing: "0.06em" }}>
             Copyright © {new Date().getFullYear()} {SITE_CONFIG.name}. All rights reserved.
           </p>
           <p style={{
-            fontSize: "10px", color: "rgba(255,255,255,0.15)",
+            fontSize: "10px", color: "var(--ink-light)",
             lineHeight: 1.8, maxWidth: 560,
           }}>
             {COUPANG_DISCLAIMER}

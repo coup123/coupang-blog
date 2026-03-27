@@ -19,9 +19,9 @@ export default function PostCard({ post, variant = "light" }: Props) {
     <Link href={`/${post.category}/${post.slug}`} className="group block h-full">
       <motion.article
         style={{
-          background: isDark ? "rgba(255,255,255,0.06)" : "var(--white)",
+          background: isDark ? "var(--white)" : "var(--white)",
           overflow: "hidden",
-          border: isDark ? "1px solid rgba(255,255,255,0.1)" : "1px solid rgba(0,0,0,0.06)",
+          border: "1px solid rgba(0,0,0,0.06)",
           height: "100%",
           display: "flex",
           flexDirection: "column",
@@ -40,9 +40,7 @@ export default function PostCard({ post, variant = "light" }: Props) {
           className="relative w-full overflow-hidden"
           style={{
             aspectRatio: "3/2",
-            background: isDark
-              ? "linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03))"
-              : "linear-gradient(135deg, var(--yellow), var(--yellow-deep))",
+            background: "linear-gradient(135deg, var(--yellow), var(--yellow-deep))",
           }}
         >
           {post.thumbnail ? (
@@ -55,16 +53,20 @@ export default function PostCard({ post, variant = "light" }: Props) {
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center">
-              <span style={{ fontSize: "3rem", opacity: 0.25 }}>{cat?.emoji}</span>
+              {cat?.iconUrl ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={cat.iconUrl} alt={cat.name} width={72} height={72}
+                  style={{ objectFit: "contain", opacity: 0.6 }} />
+              ) : (
+                <span style={{ fontSize: "3rem", opacity: 0.25 }}>{cat?.emoji}</span>
+              )}
             </div>
           )}
 
           {/* 오버레이 */}
           <div style={{
             position: "absolute", inset: 0,
-            background: isDark
-              ? "linear-gradient(to top, rgba(1,100,115,0.8) 0%, transparent 60%)"
-              : "linear-gradient(to top, rgba(255,243,160,0.5) 0%, transparent 60%)",
+            background: "linear-gradient(to top, rgba(255,243,160,0.5) 0%, transparent 60%)",
           }} />
 
           {/* 카테고리 태그 */}
@@ -72,7 +74,7 @@ export default function PostCard({ post, variant = "light" }: Props) {
             <span
               style={{
                 display: "inline-block",
-                background: isDark ? "rgba(255,255,255,0.15)" : "var(--teal)",
+                background: "var(--teal)",
                 color: "#fff",
                 fontSize: "10px",
                 fontWeight: 700,
@@ -97,7 +99,7 @@ export default function PostCard({ post, variant = "light" }: Props) {
             fontWeight: 700,
             letterSpacing: "0.12em",
             textTransform: "uppercase",
-            color: isDark ? "rgba(255,255,255,0.4)" : "var(--teal)",
+            color: "var(--teal)",
             marginBottom: 10,
             display: "block",
           }}>
@@ -110,7 +112,7 @@ export default function PostCard({ post, variant = "light" }: Props) {
             fontWeight: 800,
             lineHeight: 1.4,
             letterSpacing: "-0.01em",
-            color: isDark ? "#fff" : "var(--ink)",
+            color: "var(--ink)",
             marginBottom: 12,
             transition: "color 0.2s",
           }}>
@@ -120,7 +122,7 @@ export default function PostCard({ post, variant = "light" }: Props) {
           <p style={{
             fontSize: "var(--fs-sm)",
             lineHeight: 1.7,
-            color: isDark ? "rgba(255,255,255,0.55)" : "var(--ink-light)",
+            color: "var(--ink-light)",
             flex: 1,
             display: "-webkit-box",
             WebkitLineClamp: 2,
@@ -134,7 +136,7 @@ export default function PostCard({ post, variant = "light" }: Props) {
           <div style={{
             marginTop: 20,
             paddingTop: 16,
-            borderTop: isDark ? "1px solid rgba(255,255,255,0.08)" : "1px solid rgba(0,0,0,0.06)",
+            borderTop: "1px solid rgba(0,0,0,0.06)",
             display: "flex",
             alignItems: "center",
             justifyContent: "flex-end",
@@ -145,7 +147,7 @@ export default function PostCard({ post, variant = "light" }: Props) {
                 fontWeight: 700,
                 letterSpacing: "0.12em",
                 textTransform: "uppercase",
-                color: isDark ? "rgba(255,255,255,0.6)" : "var(--teal)",
+                color: "var(--teal)",
                 display: "flex", alignItems: "center", gap: 4,
               }}
               whileHover={{ x: 4 }}

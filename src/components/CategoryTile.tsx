@@ -29,7 +29,7 @@ export default function CategoryTile({ cat, count }: { cat: Cat; count: number }
           cursor: "pointer",
         }}
         whileHover={{
-          background: "var(--teal)",
+          background: "var(--ink)",
           transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] },
         }}
       >
@@ -45,7 +45,7 @@ export default function CategoryTile({ cat, count }: { cat: Cat; count: number }
             lineHeight: 1, pointerEvents: "none", userSelect: "none",
             transition: "color 0.3s",
           }}
-          className="group-hover:text-white/5"
+          className="group-hover:text-white/[0.05]"
         >
           {String(count).padStart(2, "0")}
         </div>
@@ -53,8 +53,14 @@ export default function CategoryTile({ cat, count }: { cat: Cat; count: number }
         <div style={{ position: "relative" }}>
           {/* 아이콘/이모지 */}
           {cat.iconUrl ? (
-            <Image src={cat.iconUrl} alt={cat.name} width={36} height={36}
-              className="object-contain mb-6" style={{ opacity: 0.7 }} />
+            <motion.div
+              style={{ marginBottom: 24, lineHeight: 1 }}
+              whileHover={{ scale: 1.15, rotate: [0, -6, 6, 0], transition: { duration: 0.4 } }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={cat.iconUrl} alt={cat.name} width={56} height={56}
+                style={{ objectFit: "contain", display: "block" }} />
+            </motion.div>
           ) : (
             <motion.span
               style={{ fontSize: "2.2rem", display: "block", marginBottom: 24, lineHeight: 1 }}

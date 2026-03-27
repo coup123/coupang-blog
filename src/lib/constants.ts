@@ -18,7 +18,7 @@ export const CATEGORIES: Record<string, {
     emoji: "🧹",
     slug: "cleaning",
     description: "집 안 구석구석 청소 노하우",
-    iconUrl: undefined, // 관리자 페이지에서 설정
+    iconUrl: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f9f9/512.png",
     color: { bg: "#e8f5e9", text: "#2e7d32", border: "#a5d6a7", accent: "#43a047" },
   },
   health: {
@@ -26,7 +26,7 @@ export const CATEGORIES: Record<string, {
     emoji: "💊",
     slug: "health",
     description: "매일 챙기는 건강 습관과 영양제",
-    iconUrl: undefined,
+    iconUrl: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f48a/512.png",
     color: { bg: "#e3f2fd", text: "#1565c0", border: "#90caf9", accent: "#1e88e5" },
   },
   cooking: {
@@ -34,7 +34,7 @@ export const CATEGORIES: Record<string, {
     emoji: "🍳",
     slug: "cooking",
     description: "쉽고 맛있는 집밥 레시피",
-    iconUrl: undefined,
+    iconUrl: "https://fonts.gstatic.com/s/e/notoemoji/latest/1f373/512.png",
     color: { bg: "#fff3e0", text: "#e65100", border: "#ffcc80", accent: "#fb8c00" },
   },
 };

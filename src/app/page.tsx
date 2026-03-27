@@ -96,8 +96,13 @@ export default function Home() {
                 {Object.values(CATEGORIES).map((cat, i) => (
                   <Link key={cat.slug} href={`/${cat.slug}`}
                     className={i === 0 ? "btn-primary" : "btn-outline"}
+                    style={{ display: "inline-flex", alignItems: "center", gap: 8 }}
                   >
-                    {cat.emoji} {cat.name}
+                    {cat.iconUrl
+                      ? <img src={cat.iconUrl} alt="" width={20} height={20} style={{ objectFit: "contain" }} />
+                      : cat.emoji
+                    }
+                    {cat.name}
                   </Link>
                 ))}
               </div>
@@ -182,24 +187,20 @@ export default function Home() {
       </section>
 
       {/* ════════════════════════════════════════════════
-          최신 꿀팁 — 틸 다크 섹션
+          최신 꿀팁 — 옐로우 섹션
       ════════════════════════════════════════════════ */}
       {latestPosts.length > 0 && (
         <section style={{
-          background: "var(--teal)",
+          background: "var(--yellow)",
           paddingTop: 100,
           paddingBottom: 100,
           position: "relative",
           overflow: "hidden",
+          borderTop: "1px solid rgba(0,0,0,0.06)",
         }}>
           {/* 배경 장식 */}
-          <div className="hero-blob" style={{
-            width: 600, height: 600,
-            background: "rgba(255,255,255,0.04)",
-            top: -200, right: -100, opacity: 1,
-          }} />
           <div className="deco-number" style={{
-            color: "rgba(255,255,255,0.04)",
+            color: "rgba(0,0,0,0.03)",
             bottom: -40, left: -20,
           }}>新</div>
 
@@ -210,9 +211,9 @@ export default function Home() {
                 marginBottom: 60, flexWrap: "wrap", gap: 20,
               }}>
                 <div>
-                  <div className="section-line-white" />
-                  <p className="text-section-label-white" style={{ marginBottom: 16 }}>Latest Posts</p>
-                  <h2 className="t-heading-white">최신 꿀팁</h2>
+                  <div className="section-line" />
+                  <p className="t-label" style={{ marginBottom: 16 }}>Latest Posts</p>
+                  <h2 className="t-heading">최신 꿀팁</h2>
                 </div>
               </div>
             </Reveal>
@@ -224,7 +225,7 @@ export default function Home() {
             }}>
               {latestPosts.map((post) => (
                 <StaggerItem key={post.slug}>
-                  <PostCard post={post} variant="dark" />
+                  <PostCard post={post} variant="light" />
                 </StaggerItem>
               ))}
             </StaggerReveal>
@@ -233,33 +234,29 @@ export default function Home() {
       )}
 
       {/* ════════════════════════════════════════════════
-          카테고리별 섹션 — 교대 레이아웃
+          카테고리별 섹션 — 흰색/옐로우 교대 레이아웃
       ════════════════════════════════════════════════ */}
       {Object.values(CATEGORIES).map((cat, idx) => {
         const catPosts = posts.filter((p) => p.category === cat.slug).slice(0, 3);
         if (catPosts.length === 0) return null;
-        const isDark = idx % 2 === 0;
+        const isWhite = idx % 2 === 0;
 
         return (
           <section
             key={cat.slug}
             style={{
-              background: isDark
-                ? "linear-gradient(160deg, var(--teal-dark), var(--teal-deep))"
-                : "var(--yellow)",
+              background: isWhite ? "var(--white)" : "var(--yellow)",
               paddingTop: 100,
               paddingBottom: 100,
-              borderTop: isDark ? "none" : "1px solid rgba(0,0,0,0.05)",
+              borderTop: "1px solid rgba(0,0,0,0.05)",
               position: "relative",
               overflow: "hidden",
             }}
           >
-            {isDark && (
-              <div className="deco-number" style={{
-                color: "rgba(255,255,255,0.03)",
-                top: -20, right: -10,
-              }}>{String(idx + 1).padStart(2, "0")}</div>
-            )}
+            <div className="deco-number" style={{
+              color: "rgba(0,0,0,0.03)",
+              top: -20, right: -10,
+            }}>{String(idx + 1).padStart(2, "0")}</div>
 
             <div className="container" style={{ position: "relative", zIndex: 1 }}>
               <Reveal variant="fadeUp">
@@ -268,24 +265,11 @@ export default function Home() {
                   marginBottom: 60, flexWrap: "wrap", gap: 20,
                 }}>
                   <div>
-                    {isDark ? (
-                      <>
-                        <div className="section-line-white" />
-                        <p className="text-section-label-white" style={{ marginBottom: 16 }}>{cat.name}</p>
-                        <h2 className="t-heading-white">{cat.description}</h2>
-                      </>
-                    ) : (
-                      <>
-                        <div className="section-line" />
-                        <p className="t-label" style={{ marginBottom: 16 }}>{cat.name}</p>
-                        <h2 className="t-heading">{cat.description}</h2>
-                      </>
-                    )}
+                    <div className="section-line" />
+                    <p className="t-label" style={{ marginBottom: 16 }}>{cat.name}</p>
+                    <h2 className="t-heading">{cat.description}</h2>
                   </div>
-                  <Link
-                    href={`/${cat.slug}`}
-                    className={isDark ? "link-arrow-white" : "link-arrow-teal"}
-                  >
+                  <Link href={`/${cat.slug}`} className="link-arrow-teal">
                     전체보기 →
                   </Link>
                 </div>
@@ -298,7 +282,7 @@ export default function Home() {
               }}>
                 {catPosts.map((post) => (
                   <StaggerItem key={post.slug}>
-                    <PostCard post={post} variant={isDark ? "dark" : "light"} />
+                    <PostCard post={post} variant="light" />
                   </StaggerItem>
                 ))}
               </StaggerReveal>
@@ -311,28 +295,22 @@ export default function Home() {
           CTA 섹션
       ════════════════════════════════════════════════ */}
       <section style={{
-        background: "var(--ink)",
+        background: "var(--white)",
         paddingTop: 120,
         paddingBottom: 120,
         textAlign: "center",
         position: "relative",
         overflow: "hidden",
+        borderTop: "1px solid rgba(0,0,0,0.06)",
       }}>
-        <div className="hero-blob" style={{
-          width: 500, height: 500,
-          background: "rgba(2,185,201,0.08)",
-          top: "50%", left: "50%",
-          transform: "translate(-50%, -50%)",
-          opacity: 1,
-        }} />
         <div className="container" style={{ position: "relative", zIndex: 1 }}>
           <Reveal variant="fadeUp">
-            <p className="t-label" style={{ color: "rgba(255,255,255,0.5)", marginBottom: 24 }}>생활 꿀팁 블로그</p>
+            <p className="t-label" style={{ marginBottom: 24 }}>생활 꿀팁 블로그</p>
             <h2 style={{
               fontFamily: "'Nanum Myeongjo', serif",
               fontSize: "clamp(36px, 5vw, 64px)",
               fontWeight: 800,
-              color: "#fff",
+              color: "var(--ink)",
               letterSpacing: "-0.03em",
               lineHeight: 1.1,
               marginBottom: 32,
@@ -341,14 +319,19 @@ export default function Home() {
               <span style={{ color: "var(--teal)" }}>지금 시작하세요.</span>
             </h2>
             <p style={{
-              fontSize: "var(--fs-md)", color: "rgba(255,255,255,0.5)",
+              fontSize: "var(--fs-md)", color: "var(--ink-light)",
               fontWeight: 300, marginBottom: 48,
             }}>
               매주 새로운 꿀팁을 만나보세요
             </p>
             <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
               {Object.values(CATEGORIES).map((cat) => (
-                <Link key={cat.slug} href={`/${cat.slug}`} className="btn-outline-white">
+                <Link key={cat.slug} href={`/${cat.slug}`} className="btn-primary"
+                  style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
+                  {cat.iconUrl
+                    ? <img src={cat.iconUrl} alt="" width={20} height={20} style={{ objectFit: "contain" }} />
+                    : cat.emoji
+                  }
                   {cat.name}
                 </Link>
               ))}

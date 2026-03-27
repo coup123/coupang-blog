@@ -32,7 +32,7 @@ export default async function CategoryPage({ params }: Props) {
     <>
       {/* ── 히어로 ── */}
       <section style={{
-        background: "var(--ink)",
+        background: "var(--yellow)",
         paddingTop: 100,
         paddingBottom: 100,
         position: "relative",
@@ -40,26 +40,31 @@ export default async function CategoryPage({ params }: Props) {
         minHeight: "50vh",
         display: "flex",
         alignItems: "center",
+        borderBottom: "1px solid rgba(0,0,0,0.06)",
       }}>
         {/* 배경 블롭 */}
         <div style={{
           position: "absolute", top: "50%", right: "5%",
           transform: "translateY(-50%)",
           width: 400, height: 400, borderRadius: "50%",
-          background: "radial-gradient(circle, rgba(2,185,201,0.12) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(2,185,201,0.08) 0%, transparent 70%)",
           pointerEvents: "none",
         }} />
-        {/* 대형 이모지 장식 */}
+        {/* 대형 아이콘 장식 */}
         <div style={{
           position: "absolute",
           right: "8%", top: "50%", transform: "translateY(-50%)",
-          fontSize: "clamp(120px, 18vw, 220px)",
-          opacity: 0.05,
-          lineHeight: 1,
+          opacity: 0.12,
           pointerEvents: "none",
           userSelect: "none",
         }}>
-          {cat.emoji}
+          {cat.iconUrl ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={cat.iconUrl} alt="" width={220} height={220}
+              style={{ objectFit: "contain", display: "block" }} />
+          ) : (
+            <span style={{ fontSize: "clamp(120px, 18vw, 220px)", lineHeight: 1 }}>{cat.emoji}</span>
+          )}
         </div>
 
         <div className="container" style={{ position: "relative", zIndex: 1 }}>
@@ -79,7 +84,7 @@ export default async function CategoryPage({ params }: Props) {
                 fontFamily: "'Nanum Myeongjo', serif",
                 fontSize: "clamp(36px, 5vw, 64px)",
                 fontWeight: 800,
-                color: "#fff",
+                color: "var(--ink)",
                 letterSpacing: "-0.03em",
                 lineHeight: 1.1,
                 marginBottom: 20,
@@ -88,7 +93,7 @@ export default async function CategoryPage({ params }: Props) {
               </h1>
               <p style={{
                 fontSize: "var(--fs-sm)",
-                color: "rgba(255,255,255,0.35)",
+                color: "var(--ink-light)",
                 fontWeight: 700,
                 letterSpacing: "0.1em",
                 textTransform: "uppercase",
